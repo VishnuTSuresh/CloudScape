@@ -1,0 +1,30 @@
+.title{
+	border-bottom: 1px solid #dfdfdf;
+}
+#login{
+	width:320px;
+	padding:20px;
+	position:absolute;
+	top:40px;
+	right:40px;
+}
+.login_background{
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #dfdfdf;
+	background:white;
+	padding:10px;
+	position: absolute;
+	top:80px;
+	left:20px;
+	right:20px;	
+	
+}
+.login_background img{
+	width:100%;
+	
+}
+.error{
+	color:red;
+}

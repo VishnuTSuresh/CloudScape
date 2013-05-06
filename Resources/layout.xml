@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+<!--
+id	|	credentials
+======================
+1	|	Undergraduate
+2	|	Postgraduate
+3	|	Admin
+4	|	Developer
+======================
+-->
+  <leftbar>
+	  <group name="General">
+	  	<entry credentials="1" url="/Academics">Academics</entry>
+	  	<entry credentials="public" url="/Mess">Mess</entry>
+      	<entry credentials="login" url="/IndepthLive">Indepth live</entry>
+      	<entry credentials="public" url="/Library">Library</entry>
+      </group>
+	  <group name="Utilities">
+      	<entry credentials="login" url="/Inbox">Inbox</entry>
+      	<entry credentials="public" url="/Softwares">Softwares</entry>
+      	<entry credentials="public" url="/E-Books">E-Books</entry>
+      	<entry credentials="public" url="/LostNFound">Lost &amp; Found</entry>
+      	<entry credentials="login" url="/Reminders">Reminders</entry>
+      	<entry credentials="public" url="/D-Mart">D-Mart</entry>
+		<entry credentials="public" url="/OpenChest">OpenChest</entry>
+	  </group>
+	  <group name="Account">
+      	<entry credentials="1" url="/Yearbook">Yearbook</entry>
+      </group>
+  </leftbar>
+</layout>

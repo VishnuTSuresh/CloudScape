@@ -1,0 +1,100 @@
+@CHARSET "ISO-8859-1";
+/* 
+-----------------------------------------------------------------------------*/
+/* Wide Layout
+-----------------------------------------------------------------------------*/
+/*
+-----------------------------------------------------------------------------*/
+#wrapper {
+	width: 100%;
+}
+#header {
+	height: 3em;
+	position: fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+/* Middle
+-----------------------------------------------------------------------------*/
+body.wide #middle {
+	margin-top: 3em;
+    margin-left: 170px;
+	margin-right: 200px;
+	
+}
+#middle:after {
+	content: '';
+	clear: both;
+	display: table;
+}
+#container {
+	min-width:900px;
+	width: 100%;
+	float: left;
+	overflow: hidden;
+	margin-right: -100%;
+	padding:5px;
+}
+#content {
+	padding: 10px 10px;
+	min-height:600px;
+	position:relative;
+}
+/* Sidebar Left
+-----------------------------------------------------------------------------*/
+body.wide #sideLeft {
+	width: 170px;
+	position: fixed;
+	top:3em;
+	left:0;
+	bottom:0;
+}
+/* Sidebar Right
+-----------------------------------------------------------------------------*/
+body.wide #sideRight {
+	width: 190px;
+	position: fixed;
+	top:3em;
+	right:0;
+	bottom:0;
+	
+}
+
+/* 
+-----------------------------------------------------------------------------*/
+/* Thin Layout
+-----------------------------------------------------------------------------*/
+/*
+-----------------------------------------------------------------------------*/
+/* Middle
+-----------------------------------------------------------------------------*/
+body.thin #middle {
+	margin-top: 5em;
+	margin-right: 5px;
+}
+/* Sidebar Left
+-----------------------------------------------------------------------------*/
+body.thin #sideLeft {
+	position: fixed;
+	top:3em;
+	left:0;
+	height:2em;
+}
+body.thin .groupwrapper{
+	width:160px;
+	float:left;
+}
+body.thin .entry{
+	display:none;
+	background:white;
+}
+/* Sidebar Right
+-----------------------------------------------------------------------------*/
+body.thin #sideRight {
+	width:160px;
+	position: fixed;
+	top:3em;
+	right:0;
+	height:2em;
+}

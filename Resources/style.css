@@ -1,0 +1,276 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-size:14px; 
+}
+body {
+	font-family:"Segoe UI","Segoe UI Web Regular","Segoe UI Symbol","Helvetica Neue","BBAlpha Sans","S60 Sans",Arial,"sans-serif";
+	background:#f9f9f9;
+}
+a {
+	color: blue;
+	outline: none;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+/* Begin of styles for the demonstration (you can remove them) */
+a.expand {
+	width: 150px;
+	display: block;
+	margin: 10px 0 0;
+}
+a.expand:hover {
+	height: 500px;
+}
+h1,h2,h3,h4,h5,h6{
+	font-weight:normal;
+	font-family:"Segoe UI Web Light","Segoe UI Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol","Helvetica Neue",Arial;
+}
+/* End of of styles for the demonstration */
+
+img {
+	border: none;
+}
+input {
+	vertical-align: middle;
+}
+p{
+	margin:1em 0;
+	text-align:justify;
+}
+
+/* Header
+-----------------------------------------------------------------------------*/
+#header{
+	color: #ccc;
+	z-index:100;
+	background:#464646;
+	-webkit-box-shadow:inset 0px -10px 10px -8px #333;
+	box-shadow:inset 0px -10px 10px -8px #333;
+}
+.dropdown 
+{
+	color: #555;
+	position:relative;
+	float:right;
+	border-left: 1px solid #555;
+	height:100%;
+}
+.submenu
+{
+background: #fff;
+z-index: 100;
+display: none;
+-webkit-border-bottom-left-radius: 3px;
+-moz-border-radius-bottomleft: 3px;
+border-bottom-left-radius: 3px;
+box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+}
+.dropdown li a 
+{
+color: #555555;
+display: block;
+cursor: pointer;
+text-decoration:none;
+padding:5px;
+}
+
+.dropdown li a:hover
+{
+background:#155FB0;
+color: #FFFFFF;
+text-decoration: none;
+}
+a.account 
+{
+	font-size:large;
+	text-align:right;
+	padding-left:5px;
+color: #ccc;
+z-index: 110;
+display: block;
+text-decoration: none;
+cursor:pointer;
+border-left: 1px solid #333;
+height:100%;
+}
+.root
+{
+list-style:none;
+}
+#logo{
+	float:left;
+	border-right: 1px solid #555;
+	height:100%;
+}
+#logo a{
+	display:block;
+	padding-right:5px;
+	border-right: 1px solid #333;
+	height:100%;
+	font-family:"Segoe UI Web Light","Segoe UI Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol","Helvetica Neue",Arial;
+	font-size:30px;
+	color:#ccc;
+}
+/* Content
+-----------------------------------------------------------------------------*/
+#content{	
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border: 1px solid #dfdfdf;
+	background:white;
+}
+/* Form 
+-----------------------------------------------------------------------------*/
+form{
+	color:#777;
+	padding: 26px 24px;
+	font-weight: normal;
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	-webkit-box-shadow: rgba(200,200,200,0.7) 0 4px 10px -1px;
+	box-shadow: rgba(200,200,200,0.7) 0 4px 10px -1px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border-width: 1px;
+	border-style: solid;
+}
+input[type="text"],input[type="password"]{
+	font-size: 16px;
+	line-height: 1;
+	box-sizing: border-box;
+	padding: 7px;
+	width: 100%;
+	margin-top: 2px;
+	margin-right: 16px;
+	margin-bottom: 16px;
+	border: 1px solid #e5e5e5;
+	background: #fbfbfb;
+	outline: 0;
+	-webkit-box-shadow: inset 1px 1px 2px rgba(200,200,200,0.2);
+	box-shadow: inset 1px 1px 2px rgba(200,200,200,0.2);
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border-width: 1px;
+	border-style: solid;
+}
+input[type="submit"]{
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fbfbfb), color-stop(1, #f7f7f7) );
+	background:-moz-linear-gradient( center top, #fbfbfb 5%, #f7f7f7 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fbfbfb', endColorstr='#f7f7f7');
+	background-color:#fbfbfb;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	font-size:15px;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	cursor:pointer;
+}
+label{
+	cursor:pointer;
+}
+/* Sidebar
+-----------------------------------------------------------------------------*/
+.sidebar{
+
+}
+/* Sidebar Left
+-----------------------------------------------------------------------------*/
+body.thin #sideLeft{
+	background-image: linear-gradient(to top,#6d6d6d,#808080);
+	width:100%;
+	-webkit-box-shadow:inset 0px -10px 10px -10px #333;
+	box-shadow:inset 0px -10px 10px -10px #333;
+}
+body.thin .group{
+	background-image: none !important;
+	border-left: 1px solid #555;
+	border-right: 1px solid #333;
+}
+body.thin .clicked{
+	background:white;
+	margin:5px;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.45)  0 2px 8px 2px;
+	box-shadow: rgba(0, 0, 0, 0.45)  0 2px 8px 2px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+}
+body.thin .clicked .group{
+	color:black !important;
+	border:none;
+}
+#sideLeft{
+	-webkit-box-shadow:inset rgba(200,200,200,0.7) -10px 0px 10px -8px;
+	box-shadow:inset rgba(200,200,200,0.7) -10px 0px 10px -8px;
+}
+#sideLeft a{
+	color:#333;
+	text-decoration:none;
+	display:block;
+	padding:3px 3px 3px 5px;
+}
+#sideLeft .group{
+	text-shadow: 0 -1px 0 #333;
+	color:white;
+	
+	padding:4px;
+	background-image: linear-gradient(to top,#6d6d6d,#808080);
+}
+#sideLeft .entry{
+	border-top-color: #f9f9f9;
+border-bottom-color: #dfdfdf;
+border-width: 1px 0;
+border-style: solid none;
+}
+#sideLeft .entry:hover{
+	background:#e4e4e4;
+}
+#sideLeft .icon{
+	height:25px;
+	vertical-align:middle;
+}
+/* Sidebar Right
+-----------------------------------------------------------------------------*/
+body.thin #AppBarTitle{
+	background-image: none !important;
+	
+}
+body.thin #sideRight{
+	-webkit-box-shadow:inset rgba(200,200,200,0.7) 0px 0px 0px 0px;
+	box-shadow:inset rgba(200,200,200,0.7) 0px 0px 0px 0px;
+}
+#AppBarTitle{
+	text-shadow: 0 -1px 0 #333;
+	color:white;
+	
+	padding:5px;
+	background-image: linear-gradient(to top,#6d6d6d,#808080);
+}
+#sideRight{
+	
+	-webkit-box-shadow:inset rgba(200,200,200,0.7) 10px 0px 10px -8px;
+	box-shadow:inset rgba(200,200,200,0.7) 10px 0px 10px -8px;
+
+}
+/* Footer
+-----------------------------------------------------------------------------*/
+#footer {
+	padding:10px 5px;
+}
+.floatright{
+	float:right;
+}
