@@ -1,10 +1,10 @@
 <?php
-require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
 /**
  *
  * @author Vishnu T Suresh
  *
  */
+require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
 class User{
 	private $user_id, $username, $firstname, $lastname;
 	private function __construct($user_id){
@@ -12,7 +12,7 @@ class User{
 	}
 	public static function withUserId($user_id){
 		$mysql=MySQL::getInstance();
-		$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, "information services website", $mysql->port);
+		$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, $mysql->database, $mysql->port);
 		if (mysqli_connect_errno()) {
 			printf("Connect failed: %s\n", mysqli_connect_error());
 			exit();
@@ -56,14 +56,35 @@ class User{
 	}
 	function getCredentials(){
 		$mysql=MySQL::getInstance();
-		$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, "information services website", $mysql->port);
+		$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, $mysql->database, $mysql->port);
 		if (mysqli_connect_errno()) {
 			printf("Connect failed: %s\n", mysqli_connect_error());
 			exit();
 		}
-		$query="SELECT name,id FROM userid_credentials INNER JOIN credentials ON credentials.id=userid_credentials.credential WHERE user_id=".$this->getUserId();
-		$result=$mysqli->query($query) or die($sql->error.__LINE__);
-		return $result;
+		$query="SELECT credential FROM userid_credentials WHERE user_id=".$this->getUserId();
+		$result=$mysqli->query($query) or die($mysqli->error.__LINE__);
+		$credentials=array();
+		while($row=$result->fetch_assoc())
+		{
+			 array_push($credentials,$row["credential"]);
+		}
+		return $credentials;
+	}
+	function hasCredential($credentials){
+		$valid_credentials=array_intersect($credentials,$this->getCredentials());
+		return (!empty($valid_credentials));
+	}
+	function isLoggedIn(){
+		$mysql=MySQL::getInstance();
+		$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, $mysql->database, $mysql->port);
+		if (mysqli_connect_errno()) {
+			printf("Connect failed: %s\n", mysqli_connect_error());
+			exit();
+		}
+		$query="SELECT EXISTS ( SELECT * FROM login WHERE user_id=".$this->getUserId()." AND expiry_time>NOW() ORDER BY token_no DESC LIMIT 1)";
+		$result=$mysqli->query($query) or die($mysqli->error.__LINE__);
+		$row=$result->fetch_array();
+		return (bool)$row[0];
 	}
 }
 ?>

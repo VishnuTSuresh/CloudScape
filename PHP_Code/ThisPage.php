@@ -11,7 +11,7 @@ class ThisPage{
 		$uuid=isset($_COOKIE["uuid"])?$_COOKIE["uuid"]:NULL;
 		if(isset($token_no)){
 			$mysql=MySQL::getInstance();
-			$sql=new mysqli($mysql->domain, $mysql->username, $mysql->password,"information services website", $mysql->port);
+			$sql=new mysqli($mysql->domain, $mysql->username, $mysql->password,$mysql->database, $mysql->port);
 			if (mysqli_connect_errno()) {
 				printf("Connect failed: %s\n", mysqli_connect_error());
 				exit();
@@ -92,9 +92,27 @@ class ThisPage{
 		<div class="group"><?php echo $group["name"]?></div>
 		<?php 
 			foreach ($group->entry as $entry){
-			?>
-			<div class="entry"><a href="<?php echo $entry["url"]?>" ><span class="text"><?php echo $entry?></span></a></div>
-			<?php 
+				$credentials=array_unique(array_map('intval', explode(',', $entry["credentials"])));
+				$display=FALSE;
+				$user=NULL;
+				$user_is_loggedin=!is_null($user=ThisPage::getUser());
+				$link_is_public=in_array(1,$credentials);
+				$link_requires_login=in_array(2,$credentials);
+				$user_has_credential=(!is_null($user))?$user->hasCredential($credentials):FALSE;
+				if($link_is_public){
+					$display=TRUE;
+				}
+				else if($link_requires_login&&$user_is_loggedin){
+					$display=TRUE;
+				}
+				else if($user_has_credential){
+					$display=TRUE;
+				}
+				if($display==TRUE){
+					?>
+					<div class="entry"><a href="<?php echo $entry["url"]?>" ><span class="text"><?php echo $entry?></span></a></div>
+					<?php 
+				}
 			}
 		?>
 		</div>
