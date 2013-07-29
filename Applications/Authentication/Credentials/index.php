@@ -1,5 +1,7 @@
 <?php 
 require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
+ThisPage::requiresCredentials(["LOGIN"]);
+ThisPage::renderTop("Home");
 ThisPage::renderTop("Credentials");
 ?>
 <h1>Credentials</h1>
@@ -12,13 +14,12 @@ You currently have the following credentials:
 <?php 
 $thisuser=ThisPage::getUser();
 $credentials=$thisuser->getCredentials();
-while($row1=$credentials->fetch_assoc())
+foreach($credentials as $credential)
 {
 ?>
-<li><?php echo $row1["name"]?></li>
+<li><?php echo $credential?></li>
 <?php
 }
-$credentials->free();
 ?>
 </ul>
 <ul>

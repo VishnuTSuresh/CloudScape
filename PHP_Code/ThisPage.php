@@ -6,6 +6,22 @@ require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
  *
  */
 class ThisPage{
+	/*
+	 * When this function is encountered php checks if the user of this page has the credentials that are passed as parameter. If he doesnt have it, he is redirected to login page.
+	 * 
+	 * @param	array	$credentials	An array of all the credentials that are allowed access to this page.
+	 */
+	public static function requiresCredentials($credentials){
+		$user=ThisPage::getUser();
+		if($user){
+			if(!($user->hasCredential($credentials))){
+				header("Location:/Authentication/Login");
+			}
+		}
+		else{
+			header("Location:/Authentication/Login");
+		}
+	}
 	public static function getUser(){
 		$token_no=isset($_COOKIE["token_no"])?$_COOKIE["token_no"]:NULL;
 		$uuid=isset($_COOKIE["uuid"])?$_COOKIE["uuid"]:NULL;
@@ -92,12 +108,12 @@ class ThisPage{
 		<div class="group"><?php echo $group["name"]?></div>
 		<?php 
 			foreach ($group->entry as $entry){
-				$credentials=array_unique(array_map('intval', explode(',', $entry["credentials"])));
+				$credentials=array_unique(array_map(null, explode(',', $entry["credentials"])));
 				$display=FALSE;
 				$user=NULL;
 				$user_is_loggedin=!is_null($user=ThisPage::getUser());
-				$link_is_public=in_array(1,$credentials);
-				$link_requires_login=in_array(2,$credentials);
+				$link_is_public=in_array("PUBLIC",$credentials);
+				$link_requires_login=in_array("LOGIN",$credentials);
 				$user_has_credential=(!is_null($user))?$user->hasCredential($credentials):FALSE;
 				if($link_is_public){
 					$display=TRUE;

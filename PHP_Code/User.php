@@ -61,17 +61,20 @@ class User{
 			printf("Connect failed: %s\n", mysqli_connect_error());
 			exit();
 		}
-		$query="SELECT credential FROM userid_credentials WHERE user_id=".$this->getUserId();
+		$query="SELECT UPPER(name)AS credential FROM userid_credentials INNER JOIN credentials ON id=credential WHERE user_id=".$this->getUserId();
 		$result=$mysqli->query($query) or die($mysqli->error.__LINE__);
 		$credentials=array();
 		while($row=$result->fetch_assoc())
 		{
 			 array_push($credentials,$row["credential"]);
 		}
+		array_push($credentials,"PUBLIC",$this->isLoggedIn()?"LOGIN":NULL);
 		return $credentials;
 	}
-	function hasCredential($credentials){
-		$valid_credentials=array_intersect($credentials,$this->getCredentials());
+	//$credentials is array
+	function hasCredential($reqcredentials){
+		$usrcredentials=$this->getCredentials();
+		$valid_credentials=array_intersect($reqcredentials,$usrcredentials);
 		return (!empty($valid_credentials));
 	}
 	function isLoggedIn(){

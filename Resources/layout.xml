@@ -3,29 +3,29 @@
 <!--
 id	|	credentials
 ======================
-1	|	Public
-2	|	Login
-3	|	Admin
-4	|	Undergraduate
-5	|	Postgraduate
-6	|	Developer
+1	|	PUBLIC
+2	|	LOGIN
+3	|	ADMIN
+4	|	UDERGRADUATE
+5	|	POSTGRADUATE
+6	|	DEVELOPER
 ======================
 -->
   <leftbar>
 	  <group name="General">
-	  	<entry credentials="4" url="/Academics">Academics</entry>
-	  	<entry credentials="1" url="/Mess">Mess</entry>
-      	<entry credentials="2" url="/IndepthLive">Indepth live</entry>
-      	<entry credentials="1" url="/Library">Library</entry>
+	  	<entry credentials="UDERGRADUATE" url="/Academics">Academics</entry>
+	  	<entry credentials="PUBLIC" url="/Mess">Mess</entry>
+      	<entry credentials="LOGIN" url="/IndepthLive">Indepth live</entry>
+      	<entry credentials="PUBLIC" url="/Library">Library</entry>
       </group>
 	  <group name="Utilities">
-      	<entry credentials="2" url="/Inbox">Inbox</entry>
-      	<entry credentials="1" url="/Softwares">Softwares</entry>
-      	<entry credentials="1" url="/E-Books">E-Books</entry>
-      	<entry credentials="1" url="/LostNFound">Lost &amp; Found</entry>
-      	<entry credentials="2" url="/Reminders">Reminders</entry>
-      	<entry credentials="1" url="/D-Mart">D-Mart</entry>
-		<entry credentials="1" url="/OpenChest">OpenChest</entry>
+      	<entry credentials="LOGIN" url="/Inbox">Inbox</entry>
+      	<entry credentials="PUBLIC" url="/Softwares">Softwares</entry>
+      	<entry credentials="PUBLIC" url="/E-Books">E-Books</entry>
+      	<entry credentials="PUBLIC" url="/LostNFound">Lost &amp; Found</entry>
+      	<entry credentials="LOGIN" url="/Reminders">Reminders</entry>
+      	<entry credentials="PUBLIC" url="/D-Mart">D-Mart</entry>
+		<entry credentials="PUBLIC" url="/OpenChest">OpenChest</entry>
 	  </group>
   </leftbar>
 </layout>

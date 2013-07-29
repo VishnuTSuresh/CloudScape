@@ -6,5 +6,5 @@ require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
  *
  */
  ThisPage::renderTop("Register");
- ThisPage::renderBottom("Register");
+ ThisPage::renderBottom();
  ?>
