@@ -21,5 +21,14 @@ class MySQL
 			$instance = new MySQL();
 		return $instance;
 	}
+	public static function getConnection(){
+		$mysql=MySQL::getInstance();
+		$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, $mysql->database, $mysql->port);
+		if (mysqli_connect_errno()) {
+			printf("Connect failed: %s\n", mysqli_connect_error());
+			exit();
+		}
+		return $mysqli;
+	}
 }
 ?>
