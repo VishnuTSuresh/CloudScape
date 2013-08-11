@@ -159,7 +159,7 @@ input[type="text"],input[type="password"]{
 	border-width: 1px;
 	border-style: solid;
 }
-input[type="submit"]{
+input[type="submit"], button, input[type="button"], input[type="reset"]{
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;

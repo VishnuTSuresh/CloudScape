@@ -7,6 +7,7 @@
 require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
 class User{
 	private $user_id, $username, $firstname, $lastname;
+	private $registered; //Rajas
 	private function __construct($user_id){
 		$this->user_id=$user_id;
 	}
@@ -26,6 +27,7 @@ class User{
 				$user->setUserName($row["username"]);
 				$user->setFirstName($row["firstname"]);
 				$user->setLastName($row["lastname"]);
+				$user->setRegistered($row["registered"]);//Rajas
 				return $user;
 			}
 		}
@@ -33,6 +35,26 @@ class User{
 			return NULL;
 		}
 	}
+	
+	public static function withEnrollment($enum,$type){ //Created by Rajas for registration purpose
+		$mysql=MySQL::getInstance();
+		$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, $mysql->database, $mysql->port);
+		if (mysqli_connect_errno()) {
+			printf("Connect failed: %s\n", mysqli_connect_error());
+			exit();
+		}
+		$query="SELECT userId FROM signup_$type WHERE enrollment=$enum";
+		$result=$mysqli->query($query) or die($sql->error.__LINE__);
+		if($result->num_rows > 0){
+			while($row = $result->fetch_accoc()){
+				$user = User::withUserId($row["userID"]);
+			}
+		}
+		else
+			return NULL;
+		
+	}
+	
 	function setUserName($username){
 		$this->username=$username;
 	}
@@ -41,6 +63,9 @@ class User{
 	}
 	function setLastName($lastname){
 		$this->lastname=$lastname;
+	}
+	function setRegistered($registered){//Rajas
+		$this->registered=$registered;
 	}
 	function getUserName(){
 		return $this->username;
@@ -53,6 +78,9 @@ class User{
 	}
 	function getLastName(){
 		return $this->lastname;
+	}
+	function getRegistered(){//Rajas
+		return $this->registered;
 	}
 	function getCredentials(){
 		$mysql=MySQL::getInstance();
