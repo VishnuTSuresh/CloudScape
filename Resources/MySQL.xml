@@ -3,6 +3,6 @@
 	<domain>127.0.0.1</domain>
 	<port>3306</port>
 	<username>root</username>
-	<password>qwerty</password>
+	<password>sql_sre!</password>
 	<database>information services website</database>
 </MySQL>

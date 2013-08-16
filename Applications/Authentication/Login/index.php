@@ -29,7 +29,6 @@ if(isset($_POST["username"])&&isset($_POST["password"])){
   <input type="password" name="password"  id="password" value="<?php echo $password?>"></input><br />
   <div class="error"><?php echo $message?></div><br />
   <input type="submit"></input>
-  <a href="../Register/index.php">Register</a>
 </form>
 </div>
 

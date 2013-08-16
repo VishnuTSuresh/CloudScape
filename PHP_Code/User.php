@@ -6,55 +6,20 @@
  */
 require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
 class User{
-	private $user_id, $username, $firstname, $lastname;
-	private $registered; //Rajas
+	protected $user_id, $username, $firstname, $lastname, $password;
 	private function __construct($user_id){
 		$this->user_id=$user_id;
 	}
 	public static function withUserId($user_id){
-		$mysql=MySQL::getInstance();
-		$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, $mysql->database, $mysql->port);
-		if (mysqli_connect_errno()) {
-			printf("Connect failed: %s\n", mysqli_connect_error());
-			exit();
+		$user=new User($user_id);
+		if($user->hasCredential(["UNDERGRADUATE"])){
+			$ug=Undergraduate::withUserId($user_id);
+			return $ug;
 		}
-		$query="SELECT username,firstname,lastname FROM invisible INNER JOIN signup_ug ON invisible.user_id=signup_ug.user_id WHERE invisible.user_id=$user_id";
-		$result=$mysqli->query($query) or die($sql->error.__LINE__);;
-		if($result->num_rows > 0) {
-			while($row = $result->fetch_assoc()) {
-				
-				$user= new User($user_id);
-				$user->setUserName($row["username"]);
-				$user->setFirstName($row["firstname"]);
-				$user->setLastName($row["lastname"]);
-				$user->setRegistered($row["registered"]);//Rajas
-				return $user;
-			}
-		}
-		else {
+		else{
 			return NULL;
 		}
 	}
-	
-	public static function withEnrollment($enum,$type){ //Created by Rajas for registration purpose
-		$mysql=MySQL::getInstance();
-		$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, $mysql->database, $mysql->port);
-		if (mysqli_connect_errno()) {
-			printf("Connect failed: %s\n", mysqli_connect_error());
-			exit();
-		}
-		$query="SELECT userId FROM signup_$type WHERE enrollment=$enum";
-		$result=$mysqli->query($query) or die($sql->error.__LINE__);
-		if($result->num_rows > 0){
-			while($row = $result->fetch_accoc()){
-				$user = User::withUserId($row["userID"]);
-			}
-		}
-		else
-			return NULL;
-		
-	}
-	
 	function setUserName($username){
 		$this->username=$username;
 	}
@@ -64,8 +29,8 @@ class User{
 	function setLastName($lastname){
 		$this->lastname=$lastname;
 	}
-	function setRegistered($registered){//Rajas
-		$this->registered=$registered;
+	function setPassword($password){
+		$this->password=$password;
 	}
 	function getUserName(){
 		return $this->username;
@@ -79,18 +44,10 @@ class User{
 	function getLastName(){
 		return $this->lastname;
 	}
-	function getRegistered(){//Rajas
-		return $this->registered;
-	}
 	function getCredentials(){
-		$mysql=MySQL::getInstance();
-		$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, $mysql->database, $mysql->port);
-		if (mysqli_connect_errno()) {
-			printf("Connect failed: %s\n", mysqli_connect_error());
-			exit();
-		}
-		$query="SELECT UPPER(name)AS credential FROM userid_credentials INNER JOIN credentials ON id=credential WHERE user_id=".$this->getUserId();
-		$result=$mysqli->query($query) or die($mysqli->error.__LINE__);
+		$mysql=MySQL::getConnection();
+		$query="SELECT UPPER(name) AS credential FROM userid_credentials INNER JOIN credentials ON id=credential WHERE user_id=".$this->getUserId();
+		$result=$mysql->query($query);
 		$credentials=array();
 		while($row=$result->fetch_assoc())
 		{
@@ -105,6 +62,20 @@ class User{
 		$valid_credentials=array_intersect($reqcredentials,$usrcredentials);
 		return (!empty($valid_credentials));
 	}
+	function addCredentials($credentials){
+		$mysql=MySQL::getConnection();
+		foreach ($credentials as $credential){
+			echo Credentials::getIdFrom($credential);
+			$mysql->query("INSERT INTO userid_credentials SET user_id=".$this->getUserId().", credential=".Credentials::getIdFrom($credential));
+		}
+	}
+	function removeCredentials($credentials){
+		$mysql=MySQL::getConnection();
+		foreach ($credentials as $credential){
+			$cred_id=Credentials::getIdFrom($credential);
+			$mysql->query("DELETE FROM userid_credentials WHERE user_id=".$this->getUserId()." AND credential=$cred_id");
+		}
+	}
 	function isLoggedIn(){
 		$mysql=MySQL::getInstance();
 		$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, $mysql->database, $mysql->port);
@@ -113,7 +84,7 @@ class User{
 			exit();
 		}
 		$query="SELECT EXISTS ( SELECT * FROM login WHERE user_id=".$this->getUserId()." AND expiry_time>NOW() ORDER BY token_no DESC LIMIT 1)";
-		$result=$mysqli->query($query) or die($mysqli->error.__LINE__);
+		$result=$mysqli->query($query);
 		$row=$result->fetch_array();
 		return (bool)$row[0];
 	}

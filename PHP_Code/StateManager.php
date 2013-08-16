@@ -9,13 +9,19 @@ class StateManager{
 		$row=$result->fetch_array(MYSQLI_ASSOC);
 		$result->free();
 		if(isset($row[user_id])){
-			$conn->query("INSERT INTO login (user_id,uuid,expiry_time) VALUES($row[user_id],uuid(),'".date("Y-m-d H:i:s",strtotime("+1 hour"))."')") or die($conn->error);
-			$result=$conn->query("SELECT token_no,uuid,expiry_time FROM login WHERE user_id='$row[user_id]' ORDER BY token_no DESC LIMIT 1") or die($conn->error);
-			$row=$result->fetch_array(MYSQLI_ASSOC);
-			$result->free();
-			setcookie("token_no",$row["token_no"],strtotime($row['expiry_time']),"/");
-			setcookie("uuid",$row["uuid"],strtotime($row['expiry_time']),"/");
-			return TRUE;
+			$user=User::withUserId($row[user_id]);
+			if($user->hasCredential(["REGISTERED"])){
+				$conn->query("INSERT INTO login (user_id,uuid,expiry_time) VALUES($row[user_id],uuid(),'".date("Y-m-d H:i:s",strtotime("+1 hour"))."')") or die($conn->error);
+				$result=$conn->query("SELECT token_no,uuid,expiry_time FROM login WHERE user_id='$row[user_id]' ORDER BY token_no DESC LIMIT 1") or die($conn->error);
+				$row=$result->fetch_array(MYSQLI_ASSOC);
+				$result->free();
+				setcookie("token_no",$row["token_no"],strtotime($row['expiry_time']),"/");
+				setcookie("uuid",$row["uuid"],strtotime($row['expiry_time']),"/");
+				return TRUE;
+			}
+			else{
+				return FALSE;
+			}
 		}
 		else{
 			return FALSE;

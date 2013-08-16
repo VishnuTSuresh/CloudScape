@@ -33,9 +33,10 @@ class ThisPage{
 				exit();
 			}
 			$query="SELECT user_id FROM login WHERE token_no='$token_no' AND uuid='$uuid' AND expiry_time >'".date("Y-m-d H:i:s")."' ORDER BY token_no DESC LIMIT 1";
-			$result=$sql->query($query) or die($sql->error.__LINE__);
+			$result=$sql->query($query);
 			if($result->num_rows > 0) {
-				while($row = $result->fetch_assoc()) {
+				while($row = $result->fetch_assoc())
+				{
 					return User::withUserId($row["user_id"]);
 				}
 			}
@@ -88,7 +89,13 @@ class ThisPage{
 		</div>
 		
 		</div>
-        <?php }?>
+        <?php }
+        else
+		{?>
+			<div class="dropdown">
+			<a href="/Authentication/Register" class=account>Register</a>
+			</div>
+  <?php }?>
 		</div><!-- #header-->
 		<div id="middle">
 		<div id="container">
