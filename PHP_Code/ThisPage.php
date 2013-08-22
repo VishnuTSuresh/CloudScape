@@ -7,11 +7,11 @@ require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
  */
 class ThisPage{
 	/*
-	 * When this function is encountered php checks if the user of this page has the credentials that are passed as parameter. If he doesnt have it, he is redirected to login page.
+	 * When this function is encountered php checks if the user of this page has any of the credentials that are passed as parameter. If he doesnt have even one of the credentials, he is redirected to login page.
 	 * 
 	 * @param	array	$credentials	An array of all the credentials that are allowed access to this page.
 	 */
-	public static function requiresCredentials($credentials){
+	public static function allowsCredentials($credentials){
 		$user=ThisPage::getUser();
 		if($user){
 			if(!($user->hasCredential($credentials))){
@@ -113,39 +113,64 @@ class ThisPage{
 		?>
 		<div class="groupwrapper">
 		<div class="group"><?php echo $group["name"]?></div>
-		<?php 
-			foreach ($group->entry as $entry){
-				$credentials=array_unique(array_map(null, explode(',', $entry["credentials"])));
-				$display=FALSE;
-				$user=NULL;
-				$user_is_loggedin=!is_null($user=ThisPage::getUser());
-				$link_is_public=in_array("PUBLIC",$credentials);
-				$link_requires_login=in_array("LOGIN",$credentials);
-				$user_has_credential=(!is_null($user))?$user->hasCredential($credentials):FALSE;
-				if($link_is_public){
-					$display=TRUE;
+			<div class="entrywrapper">
+			<?php 
+				foreach ($group->entry as $entry){
+					$credentials=array_unique(array_map(null, explode(',', $entry["credentials"])));
+					$display=FALSE;
+					$user=NULL;
+					$user_is_loggedin=!is_null($user=ThisPage::getUser());
+					$link_is_public=in_array("PUBLIC",$credentials);
+					$link_requires_login=in_array("LOGIN",$credentials);
+					$user_has_credential=(!is_null($user))?$user->hasCredential($credentials):FALSE;
+					if($link_is_public){
+						$display=TRUE;
+					}
+					else if($link_requires_login&&$user_is_loggedin){
+						$display=TRUE;
+					}
+					else if($user_has_credential){
+						$display=TRUE;
+					}
+					if($display==TRUE){
+						?>
+						<div class="entry"><a href="<?php echo $entry["url"]?>" ><span class="text"><?php echo $entry?></span></a></div>
+						<?php 
+					}
 				}
-				else if($link_requires_login&&$user_is_loggedin){
-					$display=TRUE;
-				}
-				else if($user_has_credential){
-					$display=TRUE;
-				}
-				if($display==TRUE){
-					?>
-					<div class="entry"><a href="<?php echo $entry["url"]?>" ><span class="text"><?php echo $entry?></span></a></div>
-					<?php 
-				}
-			}
-		?>
+			?>
+			</div>
 		</div>
 		<?php
 		}
 		?>
 		</div><!-- .sidebar#sideLeft -->
 		<div class="sidebar" id="sideRight">
-		<div id="AppBar" class="scroll-pane">
+		<div id="AppBar" >
 		<div id="AppBarTitle">Application Bar</div>
+		<div id="AppTools" class="scroll-pane">
+		<?php 
+		$current_dir=getcwd();
+		$orig_dir=getcwd();
+		while($current_dir!="$_SERVER[DOCUMENT_ROOT]"){
+			$apptools=simplexml_load_file($current_dir."\AppTools.xml");
+			if($apptools){
+				foreach ($apptools->tool as $tool){
+					$url=$tool["url"];
+					$absurl=$url;
+					if(strncmp($url, "\\",1)){
+						$pattern="/^".preg_quote($_SERVER[DOCUMENT_ROOT]."\\Applications")."/";
+						$absurl=preg_replace($pattern, "",getcwd())."\\".$url.(is_dir($url)?"\\index.php":"");
+					}
+					?><div class="entry"><a href="<?php echo $absurl;?>?ref=<?php echo parse_url($_SERVER[REQUEST_URI], PHP_URL_PATH);?>"><span class="text"><?php echo $tool?></span></a></div><?php
+				}
+			}
+			chdir(dirname(getcwd()));
+			$current_dir=getcwd();
+		}
+		chdir($orig_dir);
+		?>
+		</div>
 		</div>
 		
 		</div><!-- .sidebar#sideRight -->

@@ -24,7 +24,7 @@ a.expand {
 a.expand:hover {
 	height: 500px;
 }
-h1,h2,h3,h4,h5,h6{
+h1,h2,h3,h4,h5,h6,legend{
 	font-weight:normal;
 	font-family:"Segoe UI Web Light","Segoe UI Light","Segoe UI Web Regular","Segoe UI","Segoe UI Symbol","Helvetica Neue",Arial;
 	margin-bottom:8px;
@@ -35,7 +35,7 @@ h1{
 h2{
 	font-size:22px; 
 }
-h3{
+h3,legend{
 	font-size:20px; 
 }
 h4{
@@ -142,6 +142,9 @@ list-style:none;
 	border: 1px solid #dfdfdf;
 	background:white;
 }
+.float_left{
+	float:left;
+}
 div.error{
 	color:#555;
     border-radius:10px;
@@ -149,6 +152,11 @@ div.error{
     margin:10px;
 	background:#ffecec url('images/error.png') no-repeat 10px 50%;
     border:1px solid #f5aca6;
+}
+/* Table
+-----------------------------------------------------------------------------*/
+td{
+	padding:5px;
 }
 /* Form 
 -----------------------------------------------------------------------------*/
@@ -166,7 +174,8 @@ form{
 	border-width: 1px;
 	border-style: solid;
 }
-input[type="text"],input[type="password"]{
+input[type="text"],input[type="password"],select{
+	color:#555;
 	font-size: 16px;
 	line-height: 1;
 	box-sizing: border-box;
@@ -209,6 +218,13 @@ input[type="submit"], button, input[type="button"], input[type="reset"]{
 label{
 	cursor:pointer;
 }
+fieldset{
+	padding:10px;
+	border:1px #CCC solid;
+}
+legend{
+	padding:5px;
+}
 /* Sidebar
 -----------------------------------------------------------------------------*/
 .sidebar{
@@ -230,11 +246,18 @@ body.thin .group{
 body.thin .clicked{
 	background:white;
 	margin:5px;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.45)  0 2px 8px 2px;
-	box-shadow: rgba(0, 0, 0, 0.45)  0 2px 8px 2px;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
+	padding:5px;
+	border: 1px solid #ccc;
+border: 1px solid rgba(0, 0, 0, 0.2);
+-webkit-border-radius: 6px;
+-moz-border-radius: 6px;
+border-radius: 6px;
+-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+-webkit-background-clip: padding-box;
+-moz-background-clip: padding;
+background-clip: padding-box;
 }
 body.thin .clicked .group{
 	color:black !important;
@@ -244,7 +267,7 @@ body.thin .clicked .group{
 	-webkit-box-shadow:inset rgba(200,200,200,0.7) -10px 0px 10px -8px;
 	box-shadow:inset rgba(200,200,200,0.7) -10px 0px 10px -8px;
 }
-#sideLeft a{
+#sideLeft a, #AppTools a{
 	color:#333;
 	text-decoration:none;
 	display:block;
@@ -257,13 +280,13 @@ body.thin .clicked .group{
 	padding:4px;
 	background-image: linear-gradient(to top,#6d6d6d,#808080);
 }
-#sideLeft .entry{
+#sideLeft .entry, #AppTools .entry{
 	border-top-color: #f9f9f9;
 border-bottom-color: #dfdfdf;
 border-width: 1px 0;
 border-style: solid none;
 }
-#sideLeft .entry:hover{
+#sideLeft .entry:hover, #AppTools .entry:hover{
 	background:#e4e4e4;
 }
 #sideLeft .icon{

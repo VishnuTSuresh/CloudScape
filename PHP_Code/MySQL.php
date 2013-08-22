@@ -7,6 +7,7 @@
 class MySQL
 {
 	public $domain,$port,$username,$password,$database;
+	private static $instance,$mysqli;
 	private function __construct(){
 		$MySQL=simplexml_load_file("$_SERVER[DOCUMENT_ROOT]/resources/MySQL.xml");
 		$this->domain=$MySQL->domain;
@@ -16,19 +17,24 @@ class MySQL
 		$this->database=$MySQL->database;
 	}
 	public static function getInstance(){
-		static $instance;
-		if(!isset($instance))
-			$instance = new MySQL();
-		return $instance;
+		
+		if(!isset(MySQL::$instance))
+		{
+			MySQL::$instance = new MySQL();
+		}
+		return MySQL::$instance;
 	}
 	public static function getConnection(){
 		$mysql=MySQL::getInstance();
-		$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, $mysql->database, $mysql->port);
-		if (mysqli_connect_errno()) {
-			printf("Connect failed: %s\n", mysqli_connect_error());
-			exit();
+		if(!isset(MySQL::$mysqli))
+		{
+			MySQL::$mysqli= new mysqli($mysql->domain, $mysql->username, $mysql->password, $mysql->database, $mysql->port);
+			if (mysqli_connect_errno()) {
+				printf("Connect failed: %s\n", mysqli_connect_error());
+				exit();
+			}
 		}
-		return $mysqli;
+		return MySQL::$mysqli;
 	}
 }
 ?>

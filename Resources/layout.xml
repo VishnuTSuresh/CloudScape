@@ -17,6 +17,7 @@ id	|	credentials
 	  	<entry credentials="PUBLIC" url="/Mess">Mess</entry>
       	<entry credentials="LOGIN" url="/IndepthLive">Indepth live</entry>
       	<entry credentials="PUBLIC" url="/Library">Library</entry>
+      	<entry credentials="ADMIN" url="/Admin">Admin</entry>
       </group>
 	  <group name="Utilities">
       	<entry credentials="LOGIN" url="/Inbox">Inbox</entry>

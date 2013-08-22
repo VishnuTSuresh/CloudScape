@@ -1,5 +1,9 @@
 <?php
 require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
+$user=ThisPage::getUser();
+if($user){
+	header("Location:/Home");
+}
 ThisPage::renderTop("Login");
 $username="";
 $password="";
@@ -27,7 +31,9 @@ if(isset($_POST["username"])&&isset($_POST["password"])){
   <input type="text" name="username" id="username" value="<?php echo $username?>"></input><br />
   <label for="password">Password:</label><br />
   <input type="password" name="password"  id="password" value="<?php echo $password?>"></input><br />
-  <div class="error"><?php echo $message?></div><br />
+  <?php if($message!=""){?>
+  <div class="l_error"><?php echo $message?></div><br />
+  <?php }?>
   <input type="submit"></input>
 </form>
 </div>

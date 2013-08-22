@@ -14,7 +14,7 @@ require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
 <form name="register" action="step1.php" method="get">
 <table id="registerhome">
 <tr><td><input type="radio" name="type" value="ug" checked="checked" ></td><td>Undergraduate Student</td></tr>
-<tr><td><input type="radio" name="type" value="ug" ></td><td>Postgraduate Student</td></tr>
+<tr><td><input type="radio" name="type" value="pg" ></td><td>Postgraduate Student</td></tr>
 <tr><td><input type="radio" name="type" value="ug" ></td><td>Research Scholar</td></tr>
 <tr><td><input type="radio" name="type" value="ug" ></td><td>Faculty</td></tr>
 <tr><td><input type="radio" name="type" value="ug" ></td><td>Staff</td></tr>

@@ -6,7 +6,7 @@
  */
 require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
 class User{
-	protected $user_id, $username, $firstname, $lastname, $password;
+	protected $user_id, $username, $firstname, $lastname, $password, $type;
 	private function __construct($user_id){
 		$this->user_id=$user_id;
 	}
@@ -19,6 +19,17 @@ class User{
 		else{
 			return NULL;
 		}
+	}
+	public static function withUserName($username){
+		$mysql=MySQL::getConnection();
+		$query="SELECT user_id FROM invisible WHERE username=$username";
+		if($result=$mysql->query($query)){
+			$row=$result->fetch_assoc();
+			$user=User::withUserId($row["user_id"]);
+			return $user;
+		}
+		return NULL;
+				
 	}
 	function setUserName($username){
 		$this->username=$username;
@@ -44,6 +55,9 @@ class User{
 	function getLastName(){
 		return $this->lastname;
 	}
+	function getType(){
+		return $this->type;
+	}
 	function getCredentials(){
 		$mysql=MySQL::getConnection();
 		$query="SELECT UPPER(name) AS credential FROM userid_credentials INNER JOIN credentials ON id=credential WHERE user_id=".$this->getUserId();
@@ -65,9 +79,10 @@ class User{
 	function addCredentials($credentials){
 		$mysql=MySQL::getConnection();
 		foreach ($credentials as $credential){
-			echo Credentials::getIdFrom($credential);
 			$mysql->query("INSERT INTO userid_credentials SET user_id=".$this->getUserId().", credential=".Credentials::getIdFrom($credential));
+			return TRUE;
 		}
+		return FALSE;
 	}
 	function removeCredentials($credentials){
 		$mysql=MySQL::getConnection();

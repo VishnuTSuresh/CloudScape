@@ -64,5 +64,22 @@ class Undergraduate extends User{
 		}
 		return FALSE;
 	}
+	public static function createNew($username,$password,$enroll_no,$firstname,$lastname,$year_of_joining,$programme_id){
+		$mysqli=MySQL::getConnection();
+		$query="INSERT INTO invisible SET username='$username', password='$password'";
+		if($mysqli->query($query))
+		{
+			$user_id=$mysqli->insert_id;
+			$query="INSERT INTO signup_ug SET user_id=$user_id, enroll_no=$enroll_no,firstname='$firstname',lastname='$lastname',year_of_joining=$year_of_joining,programme_id=$programme_id";
+			if($mysqli->query($query)){
+				if($user=Undergraduate::withUserId($user_id)){
+					if($user->addCredentials(["UNDERGRADUATE"])){
+						return TRUE;
+					}
+				}
+			}
+		}
+		return FALSE;
+	}
 } 
 ?>

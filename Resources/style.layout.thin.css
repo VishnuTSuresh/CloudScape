@@ -1,63 +1,65 @@
-@CHARSET "ISO-8859-1";
-#wrapper {
-	width: 100%;
-	min-width: 1225px;
-}
-#header {
-	height: 3em;
-	position: fixed;
-	top:0;
-	left:0;
-	right:0;
-}
-/* Middle
------------------------------------------------------------------------------*/
-#middle {
-	margin-top: 3em;
-    margin-left: 35px;
-	margin-right: 190px;
+@media DISABLED {
+	@CHARSET "ISO-8859-1";
+	#wrapper {
+		width: 100%;
+		min-width: 1225px;
+	}
+	#header {
+		height: 3em;
+		position: fixed;
+		top:0;
+		left:0;
+		right:0;
+	}
+	/* Middle
+	-----------------------------------------------------------------------------*/
+	#middle {
+		margin-top: 3em;
+	    margin-left: 35px;
+		margin-right: 190px;
+		
+	}
+	#middle:after {
+		content: '';
+		clear: both;
+		display: table;
+	}
+	#container {
+		width: 100%;
+		float: left;
+		overflow: hidden;
+		margin-right: -100%;
+		padding:5px;
+	}
+	#content {
+		padding: 10px 20px;
+		min-height:600px;
+		position:relative;
+	}
+	/* Sidebar Left
+	-----------------------------------------------------------------------------*/
+	body.wide #sideLeft {
+		width: 35px;
+		position: fixed;
+		top:3em;
+		left:0;
+		bottom:0;
+	}
 	
-}
-#middle:after {
-	content: '';
-	clear: both;
-	display: table;
-}
-#container {
-	width: 100%;
-	float: left;
-	overflow: hidden;
-	margin-right: -100%;
-	padding:5px;
-}
-#content {
-	padding: 10px 20px;
-	min-height:600px;
-	position:relative;
-}
-/* Sidebar Left
------------------------------------------------------------------------------*/
-body.wide #sideLeft {
-	width: 35px;
-	position: fixed;
-	top:3em;
-	left:0;
-	bottom:0;
-}
-
-/* Sidebar Right
------------------------------------------------------------------------------*/
-body.wide #sideRight {
-	width: 180px;
-	position: fixed;
-	top:3em;
-	right:0;
-	bottom:0;
-	
-}
-body.thin #sideLeft {
-	display:none;
-}
-.red{
-	background: red !important;
+	/* Sidebar Right
+	-----------------------------------------------------------------------------*/
+	body.wide #sideRight {
+		width: 180px;
+		position: fixed;
+		top:3em;
+		right:0;
+		bottom:0;
+		
+	}
+	body.thin #sideLeft {
+		display:none;
+	}
+	.red{
+		background: red !important;
+	}
 }
