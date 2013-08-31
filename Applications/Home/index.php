@@ -3,11 +3,9 @@ require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
 ThisPage::allowsCredentials(["LOGIN"]);
 ThisPage::renderTop("Home");
 ?>
-
+<h1>
+Home
 </h1>
-<style>
-
-</style>
 <p>
 In quis tellus leo, et pulvinar dolor. Donec pulvinar magna quis mauris sagittis eget porttitor est ultricies. Aenean vulputate odio vitae justo tristique dignissim. Nunc facilisis sollicitudin mauris nec elementum. Nulla facilisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus viverra leo congue elit auctor vehicula.
 </p>

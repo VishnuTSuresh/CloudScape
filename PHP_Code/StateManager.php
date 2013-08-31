@@ -5,6 +5,8 @@ class StateManager{
 	public static function authenticate($username, $password){
 		$mysql=MySQL::getInstance();
 		$conn=new mysqli($mysql->domain, $mysql->username, $mysql->password,$mysql->database, $mysql->port);
+		$username=$conn->real_escape_string($username);
+		$password=$conn->real_escape_string($password);
 		$result=$conn->query("SELECT user_id FROM invisible WHERE username='$username' AND password='$password' LIMIT 1") or die($conn->error);
 		$row=$result->fetch_array(MYSQLI_ASSOC);
 		$result->free();

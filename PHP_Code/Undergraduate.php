@@ -44,18 +44,20 @@ class Undergraduate extends User{
 		return $this->enroll_no;
 	}
 	function save(){
+		$mysql = MySQL::getConnection();
+		
 		$user_id = $this->getUserId();
-		$username = $this->getUserName();
-		$enroll_no= $this->getEnrollmentNumber();
-		$firstname = $this->getFirstName();
-		$lastname = $this->getLastName();
-		$password = $this->password;
+		$username = $mysql->real_escape_string($this->getUserName());
+		$enroll_no= $mysql->real_escape_string($this->getEnrollmentNumber());
+		$firstname = $mysql->real_escape_string($this->getFirstName());
+		$lastname = $mysql->real_escape_string($this->getLastName());
+		$password = $mysql->real_escape_string($this->password);
 		
 		$passwordquery="";
 		if($password){
 			$passwordquery="password='$password'";
 		}
-		$mysql = MySQL::getConnection();
+		
 		$query = "UPDATE invisible INNER JOIN signup_ug on invisible.user_id = signup_ug.user_id SET username='$username', enroll_no=$enroll_no, firstname='$firstname', lastname='$lastname', $passwordquery WHERE invisible.user_id=$user_id";
 		$result=$mysql->query($query);
 		if($result){

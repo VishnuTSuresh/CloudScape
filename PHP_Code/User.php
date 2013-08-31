@@ -16,17 +16,25 @@ class User{
 			$ug=Undergraduate::withUserId($user_id);
 			return $ug;
 		}
+		elseif($user->hasCredential(["POSTGRADUATE"])){
+			$pg=Postgraduate::withUserId($user_id);
+			return $pg;
+		}
 		else{
 			return NULL;
 		}
 	}
 	public static function withUserName($username){
 		$mysql=MySQL::getConnection();
-		$query="SELECT user_id FROM invisible WHERE username=$username";
-		if($result=$mysql->query($query)){
-			$row=$result->fetch_assoc();
-			$user=User::withUserId($row["user_id"]);
-			return $user;
+		$query="SELECT user_id FROM invisible WHERE username='$username'";
+		$result=$mysql->query($query);
+		if($result)
+		{
+			if($result->num_rows){
+				$row=$result->fetch_assoc();
+				$user=User::withUserId($row["user_id"]);
+				return $user;
+			}
 		}
 		return NULL;
 				
@@ -43,8 +51,11 @@ class User{
 	function setPassword($password){
 		$this->password=$password;
 	}
-	function getUserName(){
-		return $this->username;
+	function getUserName($escape){
+		$username=$this->username;
+		if($escape)
+			$username=htmlentities($username);
+		return $username;
 	}
 	function getUserId(){
 		return $this->user_id;

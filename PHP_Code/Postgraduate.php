@@ -29,7 +29,7 @@ class Postgraduate extends User{
 			return NULL;
 		}
 	}
-	public static function withEnrollment($enum){ //Created by Rajas for registration purpose
+	public static function withEnrollment($enum){
 		$mysqli=MySQL::getConnection();
 		$query="SELECT user_id FROM signup_pg WHERE enroll_no=$enum";
 		$result=$mysqli->query($query);
@@ -46,11 +46,11 @@ class Postgraduate extends User{
 	}
 	function save(){
 		$user_id = $this->getUserId();
-		$username = $this->getUserName();
-		$enroll_no= $this->getEnrollmentNumber();
-		$firstname = $this->getFirstName();
-		$lastname = $this->getLastName();
-		$password = $this->password;
+		$username = $mysql->real_escape_string($this->getUserName());
+		$enroll_no= $mysql->real_escape_string($this->getEnrollmentNumber());
+		$firstname = $mysql->real_escape_string($this->getFirstName());
+		$lastname = $mysql->real_escape_string($this->getLastName());
+		$password = $mysql->real_escape_string($this->password);
 	
 		$passwordquery="";
 		if($password){
