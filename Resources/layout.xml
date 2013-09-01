@@ -13,7 +13,7 @@ id	|	credentials
 -->
   <leftbar>
 	  <group name="General">
-	  	<entry credentials="UDERGRADUATE" url="/Academics">Academics</entry>
+	  	<entry credentials="UNDERGRADUATE" url="/Academics">Academics</entry>
 	  	<entry credentials="PUBLIC" url="/Mess">Mess</entry>
       	<entry credentials="LOGIN" url="/IndepthLive">Indepth live</entry>
       	<entry credentials="PUBLIC" url="/Library">Library</entry>
