@@ -184,7 +184,7 @@ form{
 	border-width: 1px;
 	border-style: solid;
 }
-input[type="text"],input[type="password"],select{
+input[type="text"],input[type="password"],textarea,select{
 	color:#555;
 	font-size: 16px;
 	line-height: 1;
