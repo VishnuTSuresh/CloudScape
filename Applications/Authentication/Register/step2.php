@@ -68,7 +68,7 @@ $(document).ready(function(){
 		}
 	}
 	var username=$("#username");
-	username.keyup(function(){
+	username.change(function(){
 		var value=username.val(),infodiv=$("#usernameavailable");
 		infodiv.removeClass();
 		infodiv.addClass("plain");
@@ -100,8 +100,14 @@ $(document).ready(function(){
 		var confval=$("#confirm_password").val();
 		var passmatch=$("#passmatch");
 		if(passval==confval){
-			passwordsmatch=true;
-			passmatch.removeClass().addClass("success").html("Passwords match");
+				if(passval == ""){
+					passwordsmatch=false;
+					passmatch.removeClass().addClass("error").html("Passwords can't be empty.");
+				} else {
+					passwordsmatch=true;
+					passmatch.removeClass().addClass("success").html("Passwords match");
+				}
+			
 		}
 		else{
 			passwordsmatch=false;
@@ -117,8 +123,8 @@ Welcome <?php echo $user->getFirstName()." ".$user->getLastName();?>
 <p>
 Please enter the desired username and password.
 </p>
-<form action="step3.php?user_id=<?php echo $user->getUserId()?>" method=POST>
-	<label for="username">Username:</label><input type="text" name="username" id="username" autocomplete="off"/>
+<form action="step3.php?user_id=<?php echo $user->getUserId()?>" method="POST"  autocomplete="off">
+	<label for="username">Username:</label><input type="text" name="username" id="username"/>
 	<div id="usernameavailable"></div>
 	<label for="password">Password:</label><input type="password" name="password" id="password" />
 	<label for="confirm_pasword">Confirm Password:</label><input type="password" name="confirm_password" id="confirm_password" />
