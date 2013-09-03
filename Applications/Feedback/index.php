@@ -28,13 +28,18 @@ $(document).ready(function(){
 		}
 	}
 	var description=$("#description");
+	var count=$("#count");
 	description.keyup(function(){
-				if(description.val().length > 0){
-					feedback = true;
-				} else {
-					feedback = false;
-				}
-				checkall();
+
+		var length = description.val().length;	
+		if(length > 0){
+			count.html(1000 - length);
+			feedback = true;
+		} else {
+			count.html(1000);
+			feedback = false;
+		}
+		checkall();
 	});
 });
 </script>
@@ -53,10 +58,11 @@ $(document).ready(function(){
 		<tr>
 			<td>
 				Description:
-				<textarea name="description" id="description" rows="6" cols="100" style="resize: none;" placeholder="Your Feedback goes here..."></textarea>
+				<textarea name="description" id="description" maxlenght="1000" rows="6" cols="100" style="resize: none;" placeholder="Your Feedback goes here..."></textarea>
 				<input type="hidden" name="ref" value="<?php echo $_GET['ref']?>" />
 			</td>
 		</tr>
+		<tr align="right"><td><div id="count" style="display: inline;">1000</div> characters left.</td></tr>
 		<tr><td><input type="submit" value="Submit" name="submit" id="submitFeedback"  disabled=disabled></td></tr>
 		</table>
 		</form>
