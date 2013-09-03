@@ -21,13 +21,12 @@ id	|	credentials
       </group>
 	  <group name="Utilities">
       	<entry credentials="LOGIN" url="/Inbox">Inbox</entry>
-		<entry credentials="PUBLIC" url="/Openchest">Openchest</entry>
+		<entry credentials="PUBLIC" url="/OpenChest">Openchest</entry>
       	<entry credentials="PUBLIC" url="/Softwares">Softwares</entry>
       	<entry credentials="PUBLIC" url="/E-Books">E-Books</entry>
       	<entry credentials="PUBLIC" url="/LostNFound">Lost &amp; Found</entry>
       	<entry credentials="LOGIN" url="/Reminders">Reminders</entry>
       	<entry credentials="PUBLIC" url="/D-Mart">D-Mart</entry>
-		<entry credentials="PUBLIC" url="/OpenChest">OpenChest</entry>
 	  </group>
   </leftbar>
 </layout>
