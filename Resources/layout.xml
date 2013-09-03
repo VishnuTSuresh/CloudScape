@@ -16,17 +16,17 @@ id	|	credentials
 	  	<entry credentials="UNDERGRADUATE" url="/Academics">Academics</entry>
 	  	<entry credentials="PUBLIC" url="/Mess">Mess</entry>
       	<entry credentials="LOGIN" url="/IndepthLive">Indepth live</entry>
-      	<entry credentials="PUBLIC" url="/Library">Library</entry>
+      	<entry credentials="PUBLIC" url="http://172.23.14.200">Library</entry>
       	<entry credentials="ADMIN" url="/Admin">Admin</entry>
       </group>
 	  <group name="Utilities">
       	<entry credentials="LOGIN" url="/Inbox">Inbox</entry>
+		<entry credentials="PUBLIC" url="/OpenChest">Openchest</entry>
       	<entry credentials="PUBLIC" url="/Softwares">Softwares</entry>
       	<entry credentials="PUBLIC" url="/E-Books">E-Books</entry>
       	<entry credentials="PUBLIC" url="/LostNFound">Lost &amp; Found</entry>
       	<entry credentials="LOGIN" url="/Reminders">Reminders</entry>
       	<entry credentials="PUBLIC" url="/D-Mart">D-Mart</entry>
-		<entry credentials="PUBLIC" url="/OpenChest">OpenChest</entry>
 	  </group>
   </leftbar>
 </layout>
