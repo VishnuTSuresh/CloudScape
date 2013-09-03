@@ -21,6 +21,7 @@ id	|	credentials
       </group>
 	  <group name="Utilities">
       	<entry credentials="LOGIN" url="/Inbox">Inbox</entry>
+		<entry credentials="PUBLIC" url="/Openchest">Openchest</entry>
       	<entry credentials="PUBLIC" url="/Softwares">Softwares</entry>
       	<entry credentials="PUBLIC" url="/E-Books">E-Books</entry>
       	<entry credentials="PUBLIC" url="/LostNFound">Lost &amp; Found</entry>
