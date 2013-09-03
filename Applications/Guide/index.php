@@ -1,5 +1,6 @@
 <?php
 require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
+require_once "Guide.php";
 ThisPage::renderTop("Guide");
 ?>
 <h1><a style="font:inherit;color:inherit;" href="/Guide">Guide</a></h1>
@@ -7,16 +8,35 @@ ThisPage::renderTop("Guide");
 $ref=$_GET["ref"];
 if($ref){
 	function guide_callback($subject){
-		$pattern="/\.php$/";
+		$pattern="/\.php$|index\.php$/";
 		$replacement="";
 		return preg_replace($pattern, $replacement, $subject);
 	}
-	$key_arr=array_map("guide_callback", array_filter(preg_split("(\/|\\\\)", $ref)));
+	$key_arr=array_filter(array_map("guide_callback", preg_split("(\/|\\\\)", $ref)));
 	$key=implode("|",$key_arr);
 	$key_disp=implode("&rsaquo;",$key_arr);
 	$user=ThisPage::getUser();
+	?><h3>Guide for <?php echo $key_disp;?></h3><?php 
+	
+	$Guide=new Guide($user);
+	$data=$Guide->getData($key);
+	if($data){
+		if($user){?>
+			<a href=edit.php?ref=<?php echo $key;?>>edit</a><?php 
+		}
+		echo $data;
+	}
+	else{
+		?><p>This guide is empty.<?php
+		if($user){
+			?><a href=edit.php?ref=<?php echo $key;?>> Click here</a> to add content to this page. Remember that everyone can see who made the edit.</p><?php 
+		}
+		else{
+			?> Please login to edit this page.<?php
+		}
+	}
 	?>
-	<h3>Guide for <?php echo $key_disp;?></h3>
+	
 	<?php 
 }
 else{

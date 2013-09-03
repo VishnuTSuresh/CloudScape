@@ -65,7 +65,7 @@ Class UGCS{
 	}
 	public static function getKeysLike($regexp){
 		$mysqli=MySQL::getConnection();
-		$query="SELECT `key` FROM $tblnm WHERE `key` REGEXP '$regexp' AND app_name='$app_name' ORDER BY `key`";
+		$query="SELECT `key` FROM $tblnm WHERE `key` REGEXP '$regexp' AND app_name='$app_name' ORDER BY `key` ASC";
 		$result=$mysqli->query($query);
 		return $result;
 	}
@@ -75,9 +75,20 @@ Class UGCS{
 	}
 	public static function getData($key){
 		$mysqli=MySQL::getConnection();
-		$query="SELECT `value` FROM $tblnm WHERE `key` = $key AND app_name='$app_name' LIMIT 1";
+		$query="SELECT `value` FROM $tblnm WHERE `key` = $key AND app_name='$app_name' ORDER BY creation_time DESC LIMIT 1";
 		$result=$mysqli->query($query);
-		return $result;
+		if($result){
+			$row=$result->fetch_assoc();
+			$value=$row["value"];
+			$data=appGetDataBinding($value);
+			if($data){
+				return $data;
+			}
+			return false;
+		}
+		else{
+			return false;
+		}
 	}
 	protected function appGetMetaBinding($value){
 		$data=NULL;

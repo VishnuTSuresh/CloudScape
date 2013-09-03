@@ -17,8 +17,8 @@ class StateManager{
 				$result=$conn->query("SELECT token_no,uuid,expiry_time FROM login WHERE user_id='$row[user_id]' ORDER BY token_no DESC LIMIT 1") or die($conn->error);
 				$row=$result->fetch_array(MYSQLI_ASSOC);
 				$result->free();
-				setcookie("token_no",$row["token_no"],strtotime($row['expiry_time']),"/");
-				setcookie("uuid",$row["uuid"],strtotime($row['expiry_time']),"/");
+				setcookie("token_no",$row["token_no"],0,"/");
+				setcookie("uuid",$row["uuid"],0,"/");
 				return TRUE;
 			}
 			else{
