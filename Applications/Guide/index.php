@@ -19,7 +19,7 @@ if($ref){
 	?><h3>Guide for <?php echo $key_disp;?></h3><?php 
 	
 	$Guide=new Guide($user);
-	$data=$Guide->getData($key);
+	$data=Guide::getData($key);
 	if($data){
 		if($user){?>
 			<a href=edit.php?ref=<?php echo $key;?>>edit</a><?php 
