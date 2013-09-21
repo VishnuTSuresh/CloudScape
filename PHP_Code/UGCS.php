@@ -16,15 +16,17 @@ Class UGCS{
 		$value=NULL;
 		return $value;
 	}
-	public function add($key,$data){
+	public function add($key,$data,$comment){
 		$mysqli=MySQL::getConnection();
+		$key=$mysqli->real_escape_string($key);
+		$comment=$mysqli->real_escape_string($comment);
 		$query="SELECT `key` FROM ".self::$tblnm." WHERE `key`='$key' AND app_name='".static::$appname."'";
 		$result=$mysqli->query($query);
 		
 		if(intval($result->num_rows)==0){
 			$value=$this->appAddBinding($key,$data);
-			$query="INSERT INTO ".self::$tblnm." (app_name, `key`, `value`,creation_time,user_id)
-			VALUES ('".static::$appname."', '$key',$value,NOW(),".$this->user->getUserId().")";
+			$query="INSERT INTO ".self::$tblnm." (app_name, `key`, `value`,creation_time,user_id,comment)
+			VALUES ('".static::$appname."', '$key',$value,NOW(),".$this->user->getUserId().",'$comment')";
 			$mysqli->query($query);
 			return true;
 		}
@@ -37,15 +39,17 @@ Class UGCS{
 		$value=NULL;
 		return $value;
 	}
-	public function edit($key,$data){
-		
+	public function edit($key,$data,$comment){
+		Console::log($comment);
 		$mysqli=MySQL::getConnection();
+		$key=$mysqli->real_escape_string($key);
+		$comment=$mysqli->real_escape_string($comment);
 		$query="SELECT branch_node FROM ".self::$tblnm." WHERE `key`='$key' AND app_name='".static::$appname."' ORDER BY id DESC LIMIT 1";
 		$result=$mysqli->query($query);
 		if($row=$result->fetch_assoc()){
 			$value=$this->appEditBinding($key,$data);
-			$query="INSERT INTO ".self::$tblnm." (app_name, `key`, `value`,creation_time,user_id, branch_node)
-			VALUES ('".static::$appname."', '$key',$value,NOW(),".$this->user->getUserId().",".$row['branch_node'].")";
+			$query="INSERT INTO ".self::$tblnm." (app_name, `key`, `value`,creation_time,user_id, branch_node,`comment`)
+			VALUES ('".static::$appname."', '$key',$value,NOW(),".$this->user->getUserId().",".$row['branch_node'].",'$comment')";
 			$mysqli->query($query);
 			return true;
 		}
@@ -55,6 +59,7 @@ Class UGCS{
 	}
 	public function delete($key){
 		$mysqli=MySQL::getConnection();
+		$key=$mysqli->real_escape_string($key);
 		$query="SELECT branch_node FROM ".self::$tblnm." WHERE `key`='$key' AND app_name='".static::$appname."' ORDER BY id DESC LIMIT 1";
 		$result=$mysqli->query($query);
 		if($row=$result->fetch_assoc()){
@@ -78,8 +83,8 @@ Class UGCS{
 		return $data;
 	}
 	public static function getData($key){
-		
 		$mysqli=MySQL::getConnection();
+		$key=$mysqli->real_escape_string($key);
 		$query="SELECT `value` FROM ".self::$tblnm." WHERE `key` = '$key' AND app_name='".static::$appname."' ORDER BY creation_time DESC LIMIT 1";
 		$result=$mysqli->query($query);
 		if($result){
@@ -101,7 +106,19 @@ Class UGCS{
 		return $data;
 	}
 	public static function getMeta($key){
-	
+	//not yet implemented. current apps dont require it.
+	}
+	public static function history($key,$limit){
+		$mysqli=MySQL::getConnection();
+		$key=$mysqli->real_escape_string($key);
+		$query="SELECT creation_time,user_id,branch_node,comment FROM ".self::$tblnm." WHERE `key` = '$key' AND app_name='".static::$appname."' ORDER BY creation_time DESC LIMIT $limit";
+		$result=$mysqli->query($query);
+		if($result){
+			return $result;
+		}
+		else{
+			return false;
+		}
 	}
 }
 ?>

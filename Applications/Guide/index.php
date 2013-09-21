@@ -13,7 +13,7 @@ if($ref){
 		return preg_replace($pattern, $replacement, $subject);
 	}
 	$key_arr=array_filter(array_map("guide_callback", preg_split("(\/|\\\\)", $ref)));
-	$key=implode("|",$key_arr);
+	$key=implode("/",$key_arr);
 	$key_disp=implode("&rsaquo;",$key_arr);
 	$user=ThisPage::getUser();
 	?><h3>Guide for <?php echo $key_disp;?></h3><?php 
@@ -22,8 +22,11 @@ if($ref){
 	$data=Guide::getData($key);
 	if($data){
 		if($user){?>
-			<a href=edit.php?ref=<?php echo $key;?>>edit</a><?php 
+			<a href=edit.php?ref=<?php echo $key;?>>Edit</a><?php 
 		}
+		?>
+		<a href=history.php?ref=<?php echo $key;?>>History</a>
+		<?php 
 		echo $data;
 	}
 	else{

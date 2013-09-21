@@ -7,10 +7,11 @@ if($_POST["content"]){
 	$purifier = new HTMLPurifier($config);
 	$clean_html = $purifier->purify($_POST["content"]);
 	$Guide=new Guide(ThisPage::getUser());
-	if($Guide->add($_GET[ref],$clean_html)){
+	if($Guide->add($_GET[ref],$clean_html,$_POST["comment"])){
 		header("Location:/Guide/index.php?ref=$_GET[ref]");
 	}
-	else if($Guide->edit($_GET[ref],$clean_html)){
+	else if($Guide->edit($_GET[ref],$clean_html,$_POST["comment"])){
+		
 		header("Location:/Guide/index.php?ref=$_GET[ref]");
 	}
 }
@@ -18,6 +19,7 @@ ThisPage::renderTop("Guide");
 ?>
 <script type="text/javascript" src="/Resources/script/tinymce/js/tinymce/jquery.tinymce.min.js"></script>
 <script type="text/javascript" src="/Resources/script/tinymce/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript" src="/Resources/script/validate.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#editor").tinymce({
@@ -29,7 +31,24 @@ $(document).ready(function(){
 		 init_instance_callback : function() {
 		   }
 	});
-	
+	var validator= new FormValidator("editor_form",[{name:"comment",display:"Comments",rules: 'required|min_length[10]'}],function(errors,evt){
+
+		if (errors.length > 0) {
+	        var errorString = '';
+	        
+	        for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+	            errorString += errors[i].message + '<br />';
+	        }
+	        
+	        $("#error_box").addClass("error").html(errorString);
+	        if (evt && evt.preventDefault) {
+	            evt.preventDefault();
+	        } else if (event) {
+	            event.returnValue = false;
+	        }
+	    }  
+		
+	});
 	
  });
 </script>
@@ -41,11 +60,14 @@ if($ref){
 	$user=ThisPage::getUser();
 	$Guide=new Guide($user);
 	?>
-	<h3>Edit &raquo; <?php echo implode(" &rsaquo; ",explode("|",$ref));?></h3>
+	<h3>Edit &raquo; <?php echo implode(" &rsaquo; ",explode("/",$ref));?></h3>
 	
-	<form action="edit.php?ref=<?php echo $_GET["ref"]?>" id="editor_form" method=POST>
+	<form name="editor_form" action="edit.php?ref=<?php echo $_GET["ref"]?>" id="editor_form" method=POST>
 	<textarea id="editor" name=content><?php echo Guide::getData($_GET["ref"]);?></textarea>
-	<input type="submit" value="Submit"/>
+	Comments:
+	<textarea id="comment" name=comment></textarea>
+	<div id="error_box"></div>
+	<input type="submit" value="Submit" title="Please enter comment"/>
 	</form>
 	<?php 
 }

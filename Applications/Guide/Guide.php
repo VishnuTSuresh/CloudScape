@@ -14,12 +14,14 @@ class Guide extends UGCS{
 	}
 	protected function appEditBinding($key,$data){
 		$mysql=MySQL::getConnection();
+		$data=$mysql->real_escape_string($data);
 		$query="INSERT INTO guide SET content='$data'";
 		$mysql->query($query);
 		return $mysql->insert_id;
 	}
 	protected static function appGetDataBinding($value){
 		$mysql=MySQL::getConnection();
+		$value=$mysql->real_escape_string($value);
 		$query="SELECT content FROM guide WHERE id=$value LIMIT 1";
 		$result=$mysql->query($query);
 		if($result){
