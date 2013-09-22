@@ -82,10 +82,11 @@ Class UGCS{
 		$data=NULL;
 		return $data;
 	}
-	public static function getData($key){
+	public static function getData($key,$history){
 		$mysqli=MySQL::getConnection();
 		$key=$mysqli->real_escape_string($key);
-		$query="SELECT `value` FROM ".self::$tblnm." WHERE `key` = '$key' AND app_name='".static::$appname."' ORDER BY creation_time DESC LIMIT 1";
+		$history=$history?$history:0;
+		$query="SELECT `value` FROM ".self::$tblnm." WHERE `key` = '$key' AND app_name='".static::$appname."' ORDER BY id DESC LIMIT $history,1";
 		$result=$mysqli->query($query);
 		if($result){
 			$row=$result->fetch_assoc();

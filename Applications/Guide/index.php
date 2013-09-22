@@ -6,6 +6,7 @@ ThisPage::renderTop("Guide");
 <h1><a style="font:inherit;color:inherit;" href="/Guide">Guide</a></h1>
 <?php
 $ref=$_GET["ref"];
+$history=$_GET["h"];
 if($ref){
 	function guide_callback($subject){
 		$pattern="/\.php$|index\.php$/";
@@ -19,14 +20,21 @@ if($ref){
 	?><h3>Guide for <?php echo $key_disp;?></h3><?php 
 	
 	$Guide=new Guide($user);
-	$data=Guide::getData($key);
+	if($history){
+		?>
+		<div class="error">This is an old revision of this page. It may differ significantly from the current revision. </div>
+		<?php 
+	}
+	$data=Guide::getData($key,$history);
 	if($data){
+if(!$history){
 		if($user){?>
 			<a href=edit.php?ref=<?php echo $key;?>>Edit</a><?php 
 		}
 		?>
 		<a href=history.php?ref=<?php echo $key;?>>History</a>
 		<?php 
+		}
 		echo $data;
 	}
 	else{

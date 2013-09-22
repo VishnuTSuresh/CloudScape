@@ -17,15 +17,18 @@ $ref=$_GET["ref"];
   </tr>
 <?php 
 $history=Guide::history($ref,10);
+$history_no=0;
 while($row=$history->fetch_assoc()){
 ?>
   <tr>
-    <td><?php echo $row["creation_time"]?></td>
+    <td><a href="index.php?ref=<?php echo $ref;?>&h=<?php echo $history_no;?>"><?php echo $row["creation_time"]?></a></td>
     <td><?php $user=User::withUserId($row["user_id"]);
     echo $user->getFirstName()." ".$user->getLastName()?></td>
     <td><?php echo $row["comment"]?></td>
     <td><?php echo $row["branch_node"]?></td>
   </tr>
-<?php }?>
+<?php 
+	$history_no++;
+}?>
 </table>
 <?php ThisPage::renderBottom()?>
