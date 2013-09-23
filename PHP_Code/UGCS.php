@@ -25,8 +25,8 @@ Class UGCS{
 		
 		if(intval($result->num_rows)==0){
 			$value=$this->appAddBinding($key,$data);
-			$query="INSERT INTO ".self::$tblnm." (app_name, `key`, `value`,creation_time,user_id,comment)
-			VALUES ('".static::$appname."', '$key',$value,NOW(),".$this->user->getUserId().",'$comment')";
+			$query="INSERT INTO ".self::$tblnm." (app_name, `key`, `value`,creation_time,user_id,comment,action)
+			VALUES ('".static::$appname."', '$key',$value,NOW(),".$this->user->getUserId().",'$comment','ADD')";
 			$mysqli->query($query);
 			return true;
 		}
@@ -57,20 +57,49 @@ Class UGCS{
 			return false;
 		}
 	}
-	public function delete($key){
+	public function delete($key,$comment){
 		$mysqli=MySQL::getConnection();
 		$key=$mysqli->real_escape_string($key);
+		$comment=$mysqli->real_escape_string($comment);
 		$query="SELECT branch_node FROM ".self::$tblnm." WHERE `key`='$key' AND app_name='".static::$appname."' ORDER BY id DESC LIMIT 1";
 		$result=$mysqli->query($query);
 		if($row=$result->fetch_assoc()){
-			$query="INSERT INTO ".self::$tblnm." (app_name, `key`, `value`,creation_time,user_id, branch_node)
-			VALUES ('".static::$appname."', '$key',NULL,NOW(),".$this->user->getUserId().",".$row['branch_node'].")";
+			$query="INSERT INTO ".self::$tblnm." (app_name, `key`, `value`,creation_time,user_id, branch_node,comment,action)
+			VALUES ('".static::$appname."', '$key',NULL,NOW(),".$this->user->getUserId().",".$row['branch_node'].",'$comment','DELETE')";
 			$mysqli->query($query);
 			return true;
 		}
 		else{
 			return false;
 		}
+	}
+	public function undo($id,$comment){
+		$mysqli=MySQL::getConnection();
+		$id=$mysqli->real_escape_string($id);
+		$query="INSERT INTO ".self::$tblnm." 
+				(app_name,
+				`key`,
+				value,
+				creation_time,
+				user_id,
+				branch_node,
+				comment,
+				action)
+				 
+				SELECT 
+				'".static::$appname."',
+				`key`,
+				value,
+				NOW(),
+				".$this->user->getUserId().",
+				id,
+				'$comment',
+				'UNDO'
+				FROM ".self::$tblnm." 
+				WHERE id = $id";
+		echo $query;
+		$result=$mysqli->query($query);
+		return $result;
 	}
 	public static function getKeysLike($regexp){
 		$mysqli=MySQL::getConnection();
@@ -82,11 +111,10 @@ Class UGCS{
 		$data=NULL;
 		return $data;
 	}
-	public static function getData($key,$history){
+	public static function getData($key){
 		$mysqli=MySQL::getConnection();
 		$key=$mysqli->real_escape_string($key);
-		$history=$history?$history:0;
-		$query="SELECT `value` FROM ".self::$tblnm." WHERE `key` = '$key' AND app_name='".static::$appname."' ORDER BY id DESC LIMIT $history,1";
+		$query="SELECT `value` FROM ".self::$tblnm." WHERE `key` = '$key' AND app_name='".static::$appname."' ORDER BY id DESC LIMIT 1";
 		$result=$mysqli->query($query);
 		if($result){
 			$row=$result->fetch_assoc();
@@ -102,17 +130,63 @@ Class UGCS{
 			return false;
 		}
 	}
-	protected function appGetMetaBinding($value){
+	public static function getDataById($id){
+		$mysqli=MySQL::getConnection();
+		$id=$mysqli->real_escape_string($id);
+		$query="SELECT `value` FROM ".self::$tblnm." WHERE id = '$id'";
+		$result=$mysqli->query($query);
+		if($result){
+			$row=$result->fetch_assoc();
+			$value=$row["value"];
+				
+			$data=static::appGetDataBinding($value);
+			if($data){
+				return $data;
+			}
+			return false;
+		}
+		else{
+			return false;
+		}
+	}
+	protected static function appGetMetaBinding($value){
 		$data=NULL;
 		return $data;
 	}
 	public static function getMeta($key){
 	//not yet implemented. current apps dont require it.
 	}
+	public static function getMetaById($id){
+		$mysqli=MySQL::getConnection();
+		$id=$mysqli->real_escape_string($id);
+		$query="SELECT 
+				`key`,
+				value,
+				creation_time,
+				user_id,
+				branch_node,
+				comment,
+				action 
+				
+				FROM ".self::$tblnm." 
+				
+				WHERE id=$id";
+		$result=$mysqli->query($query);
+		if($result){
+			$meta1=$result->fetch_assoc();
+			$meta2=static::appGetMetaBinding($meta1["value"]);
+			($meta2)?$meta=array_merge($meta1,$meta2):$meta=$meta1;
+			unset($meta["value"]);		
+			return $meta;
+		}
+		else{
+			return false;
+		}
+	}
 	public static function history($key,$limit){
 		$mysqli=MySQL::getConnection();
 		$key=$mysqli->real_escape_string($key);
-		$query="SELECT creation_time,user_id,branch_node,comment FROM ".self::$tblnm." WHERE `key` = '$key' AND app_name='".static::$appname."' ORDER BY creation_time DESC LIMIT $limit";
+		$query="SELECT id,creation_time,user_id,branch_node,comment,action FROM ".self::$tblnm." WHERE `key` = '$key' AND app_name='".static::$appname."' ORDER BY creation_time DESC LIMIT $limit";
 		$result=$mysqli->query($query);
 		if($result){
 			return $result;
