@@ -42,13 +42,13 @@ if(!$history){
 			<a href=edit.php?ref=<?php echo $key;?>>Edit</a><?php 
 		}
 		?>
-		<a href=history.php?ref=<?php echo $key;?>>History</a>
+		<a href=history.php?ref=<?php echo $key;?>>History</a><hr />
 		<?php 
 		}
 		echo $data;
 	}
 	else{
-		?><p>This guide is empty.<?php
+		?><hr /><p>This guide is empty.<?php
 		if($user){
 			?><a href=edit.php?ref=<?php echo $key;?>> Click here</a> to add content to this page. Remember that everyone can see who made the edit.</p><?php 
 		}

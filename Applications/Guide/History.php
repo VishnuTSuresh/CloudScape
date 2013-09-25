@@ -6,6 +6,8 @@ ThisPage::renderTop("Guide");
 <h1>Guide</h1>
 <?php
 $ref=$_GET["ref"];
+$page=$_GET["p"]?$_GET["p"]:1;
+$curr_user=ThisPage::getUser();
 ?>
 <h3>History &raquo; <?php echo implode(" &rsaquo; ",explode("/",$ref));?></h3>
 <table border="1px" style="width: 100%;">
@@ -15,12 +17,12 @@ $ref=$_GET["ref"];
     <th>User</th>
     <th>Comment</th>
     <th>Branch Node</th>
-    <th>Undo</th>
+    <?php if($curr_user){?><th>Undo</th><?php }?>
     <th>Action</th>
     
   </tr>
 <?php 
-$history=Guide::history($ref,10);
+$history=Guide::history($ref,10*$page);
 $first_loop=true;
 while($row=$history->fetch_assoc()){
 ?>
@@ -41,15 +43,16 @@ while($row=$history->fetch_assoc()){
     }?></td>
     <td><?php echo $row["comment"]?></td>
     <td><?php echo $row["branch_node"]?></td>
-    <td style="text-align: center;"><?php 
+    <?php if($curr_user){?><td style="text-align: center;"><?php 
     if(!$first_loop){
     	?><a style="font-size: 1.5em;" href='undo.php?id=<?php echo $row["id"] ?>'>&#9100;</a>
   <?php }?>
-  	</td>
+  	</td><?php }?>
   	<td><?php echo $row["action"]?></td>
   </tr>
 <?php
 $first_loop=false;
 }?>
 </table>
+<a href="History.php?ref=<?php echo $ref;?>&p=<?php echo ++$page;?>">more</a>
 <?php ThisPage::renderBottom()?>
