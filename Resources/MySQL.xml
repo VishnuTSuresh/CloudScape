@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MySQL>
-	<domain>172.23.14.210</domain>
+	<domain>127.0.0.1</domain>
 	<port>3306</port>
 	<username>root</username>
 	<password>sql_sre!</password>
-	<database>information services website</database>
+	<database>isw</database>
 </MySQL>

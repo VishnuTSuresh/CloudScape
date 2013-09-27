@@ -10,7 +10,7 @@ $page=$_GET["p"]?$_GET["p"]:1;
 $curr_user=ThisPage::getUser();
 ?>
 <h3>History &raquo; <?php echo implode(" &rsaquo; ",explode("/",$ref));?></h3>
-<table border="1px" style="width: 100%;">
+<table class="table" style="width: 100%;">
   <tr>
   	<th>Id</th>
     <th>Creation Date</th>

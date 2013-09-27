@@ -53,9 +53,9 @@ class ThisPage{
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>ISW &rsaquo; <?php echo $title?></title>
 		
-		<link rel="stylesheet" href="/resources/style.css" type="text/css" media="screen, projection"/>
-		<link type="text/css" href="/resources/jquery.jscrollpane.css" rel="stylesheet" media="all" />
-		<link rel="stylesheet" href="/resources/style.layout.css" type="text/css" media="screen, projection"/>
+		<link rel="stylesheet" href="/resources/style.css" type="text/css""/>
+		<link type="text/css" href="/resources/jquery.jscrollpane.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="/resources/style.layout.css" type="text/css"/>
 		
 		<script type="text/javascript" src="/resources/script/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" src="/resources/script/jquery.mousewheel.js"></script>

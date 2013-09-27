@@ -1,0 +1,77 @@
+table.table{
+	width:100%;
+	padding:5px;
+	margin-top: 15px;
+}
+table.table td{
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow:1px 1px 2px rgba(200,200,200,0.2);
+	box-shadow:1px 1px 2px rgba(200,200,200,0.2);
+	padding:3px;
+}
+table.table td .cell_container{
+	min-height: 100px;
+}
+table.table td.period{
+	width:13.8%;
+}
+table.table td.period:HOVER{
+	background:#E2F0D6;
+	cursor: pointer;
+}
+table.table td.period_selected{
+	background:#CCD9C1;
+	cursor: default;
+	color:white;
+}
+table.table td .entered_item{
+	padding:3px 0px 0px 5px;;
+}
+table.table td .entered_item:hover{
+		-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+background:#D6E3CA;
+	cursor: pointer;
+}
+ul#food_list{
+	height:200px;
+	padding-left:0px;
+	border: 1px solid #e5e5e5;
+	background: #fbfbfb;
+	outline: 0;
+	-webkit-box-shadow: inset 1px 1px 2px rgba(200,200,200,0.2);
+	box-shadow: inset 1px 1px 2px rgba(200,200,200,0.2);
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	border-width: 1px;
+	border-style: solid;
+	padding-top:5px;
+}
+ul#food_list li.food_item{
+	border-bottom:1px solid #e5e5e5;
+	padding:5px;
+	list-style-type:none;
+	cursor:pointer;
+	margin:0px;
+}
+ul#food_list li.food_item:HOVER{
+	background:#E2F0D6;
+}
+#food_list_app{
+	outline-color: transparent;
+}
+.ui-dialog-titlebar{
+display:none;
+}
+#esctox{
+
+	cursor:pointer;
+}
+#mess_calendar{
+	padding:10px;
+	float:right;
+}
