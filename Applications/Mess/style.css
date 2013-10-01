@@ -1,7 +1,12 @@
-table.table{
+#mess_time_table{
 	width:100%;
 	padding:5px;
-	margin-top: 15px;
+	border:none;
+	-webkit-box-shadow:none;
+	box-shadow: none;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	border-radius: 0px;
 }
 table.table td{
 	-webkit-border-radius: 3px;
@@ -27,7 +32,11 @@ table.table td.period_selected{
 	color:white;
 }
 table.table td .entered_item{
-	padding:3px 0px 0px 5px;;
+	padding:3px 0px 0px 5px;
+	margin:0px;
+	font:inherit;
+	background: none;
+	border: none;
 }
 table.table td .entered_item:hover{
 		-webkit-border-radius: 3px;
@@ -67,6 +76,13 @@ ul#food_list li.food_item:HOVER{
 .ui-dialog-titlebar{
 display:none;
 }
+.ui-datepicker-month{
+	padding:0px;
+	margin-right: 2px;
+}
+.ui-datepicker-year{
+	padding:0px;
+}
 #esctox{
 
 	cursor:pointer;
@@ -74,4 +90,14 @@ display:none;
 #mess_calendar{
 	padding:10px;
 	float:right;
+}
+#mess_form{
+	margin-top: 10px;
+	padding:0px;
+}
+#mess_submit_div{
+	text-align: center;
+}
+#mess_form_bottom{
+	padding:10px;
 }

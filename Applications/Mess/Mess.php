@@ -7,5 +7,12 @@ class Mess extends UGCS{
 		$result=$mysql->query($query);
 		return $result;
 	}
+	public static function keyFromDate($date){
+		$timestamp=strtotime($date);
+		$timestamp=$timestamp?$timestamp:$date;
+		$key=date("o\WW",$timestamp);
+		if($key)return $key;
+		return date("o\WW");
+	}
 }
 ?>

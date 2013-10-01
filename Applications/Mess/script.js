@@ -30,6 +30,8 @@ function init_cell(day,period){
 				entry_element.click(function(){
 					self.removeItem(items[item.id]);
 				});
+				var input=$("<input type='hidden' name="+day.slice(0,2)+"["+period.slice(0,1)+"][] />").val(item.id);
+				entry_element.append(input);
 				items[item.id]={
 					id:item.id,
 					name:item.name,
@@ -79,11 +81,59 @@ function init_foodsearch(){
 	});
 }
 $(function(){
-	$("#food_list_app").dialog({ autoOpen: false, closeOnEscape: true,draggable: false,resizable:false }).parent().draggable();
+	var validator= new FormValidator("mess_form",
+			[{
+				 name:"comment",
+				 display:"Comment",
+				 rules: 'required|min_length[10]'
+			}],
+		function(errors,evt){
+			if (errors.length > 0) {
+		        var errorString = '';
+		        
+		        for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+		            errorString += errors[i].message + '<br />';
+		        }
+		        
+		        $("#error_box").addClass("error").html(errorString);
+		        if (evt && evt.preventDefault) {
+		            evt.preventDefault();
+		        } else if (event) {
+		            event.returnValue = false;
+		        }
+		    }  
+			
+		});
+	$("#food_list_app").dialog({ 
+		autoOpen: false, 
+		closeOnEscape: true,
+		draggable: false,
+		resizable:false,
+	}).parent().draggable();
 	$("#esctox").click(function(){
 		$("#food_list_app").dialog("close");
+		Mess.selected_cell?Mess.selected_cell.element.removeClass("period_selected").addClass("period"):null;
+		Mess.selected_cell=null;
 	});
-	$("#mess_calendar").datepicker({ firstDay: 1 });
+	function getParameterByName(name) {
+	    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	        results = regex.exec(location.search);
+	    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+	}
+	$("#mess_calendar").datepicker({ 
+		firstDay: 1,
+		changeMonth: true,
+		changeYear: true,
+		onSelect: function(dateText, inst) { 
+			window.location = "Edit.php?ts="+dateText;
+		},
+		dateFormat: "d-M-yy",
+		defaultDate: getParameterByName("ts"),
+	});
+	$("#mess_form").submit(function(){
+		
+	});
 	//creates Mess.forEachFood
 	Mess.forEachFood=function(callback_func){
 		for(var food_name in Mess.FoodList){

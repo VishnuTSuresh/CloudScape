@@ -3,12 +3,13 @@ require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
 require_once 'Mess.php';
 ThisPage::renderTop("Mess &raquo; Edit");
 ThisPage::allowsCredentials(["LOGIN"]);
+$key=Mess::keyFromDate($_GET["ts"]);
 ?>
 <link rel="stylesheet" href="style.css" type="text/css"/>
 <link rel="stylesheet" href="/Resources/jquery-ui-1.10.3.custom.css" type="text/css"/>
-<script type="text/javascript" src="script.js"></script>
 <script type="text/javascript" src="/Resources/script/jquery-ui.min.js"></script>
-
+<script type="text/javascript" src="/Resources/script/validate.min.js"></script>
+<script type="text/javascript" src="script.js"></script>
 <script type="text/javascript">
 var Mess=Mess||{};
 Mess.FoodList={
@@ -36,7 +37,10 @@ $food_list=Mess::getFoodList();
 </form>
 <div class="form" id="mess_calendar"></div>
 <div style="clear: both;"></div>
-<table class="table">
+
+
+<form id="mess_form" name="mess_form" method="get">
+<table class="table" id="mess_time_table">
 <tr>
 	<td></td>
 	<td>Monday</td>
@@ -78,6 +82,18 @@ $food_list=Mess::getFoodList();
 	<td class="period Sunday"><div class="cell_container"></div></td>
 </tr>
 </table>
+<div id="mess_form_bottom">
+<div id="error_box"></div>
+	<b>Comment:</b>
+	<br />
+	<br />
+	<input type="text" name="comment">
+	
+	<div id="mess_submit_div">
+	<input type="submit" name="mess_submit" value="Save Time Table">
+	</div>
+</div>
+</form>
 <?php 
 ThisPage::renderBottom();
 ?>
