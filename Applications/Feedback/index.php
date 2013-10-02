@@ -5,7 +5,7 @@
 *Date Created: 01/09/13
 *
 */
-require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
+require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 ThisPage::renderTop(Feedback);
 function ref_clean($subject){
 	$pattern = "/\.php$|index\.php$/";

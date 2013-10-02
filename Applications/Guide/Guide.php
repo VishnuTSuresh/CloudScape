@@ -1,5 +1,5 @@
 <?php
-require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
+require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 class Guide extends UGCS{
 	protected static $appname="GUIDE";
 	public function __construct($user){

@@ -4,7 +4,7 @@
  * @author Vishnu T Suresh
  *
  */
-require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
+require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 class User{
 	protected $user_id, $username, $firstname, $lastname, $password, $type;
 	private function __construct($user_id){

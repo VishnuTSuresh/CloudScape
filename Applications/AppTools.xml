@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AppTools>
-<tool url="\Guide\index.php">Guide</tool>
-<tool url="\Feedback\index.php">Feedback</tool>
+<tool url="\Guide" credentials="PUBLIC">Guide</tool>
+<tool url="\Feedback" credentials="PUBLIC">Feedback</tool>
 </AppTools>

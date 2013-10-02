@@ -4,7 +4,7 @@
  * @author Vishnu T Suresh
  *
  */
-require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
+require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 
 Class UGCS{
 	protected static $tblnm="user_generated_content_system",$appname="";
@@ -25,10 +25,14 @@ Class UGCS{
 		
 		if(intval($result->num_rows)==0){
 			$value=$this->appAddBinding($key,$data);
-			$query="INSERT INTO ".self::$tblnm." (app_name, `key`, `value`,creation_time,user_id,comment,action)
-			VALUES ('".static::$appname."', '$key',$value,NOW(),".$this->user->getUserId().",'$comment','ADD')";
-			$mysqli->query($query);
-			return true;
+			if($value!==false){
+				$query="INSERT INTO ".self::$tblnm." (app_name, `key`, `value`,creation_time,user_id,comment,action)
+				VALUES ('".static::$appname."', '$key',$value,NOW(),".$this->user->getUserId().",'$comment','ADD')";
+				$mysqli->query($query);
+				return true;
+			}else{
+				return false;
+			}
 		}
 		else{
 			return false;

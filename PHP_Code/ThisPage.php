@@ -1,5 +1,5 @@
 <?php
-require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
+require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 /**
  * 
  * @author Vishnu T Suresh
@@ -102,13 +102,41 @@ class ThisPage{
 		<div id="content">	
 		<?php 
 	}
+	private static function displaySBentry($credentials){
+		if(!is_array($credentials))$credentials=explode(',', $credentials);
+		$credentials=array_unique(array_map(null, $credentials));
+		$display=FALSE;
+		$user=NULL;
+		$user_is_loggedin=!is_null($user=ThisPage::getUser());
+		$link_is_public=in_array("PUBLIC",$credentials);
+		$link_requires_login=in_array("LOGIN",$credentials);
+		$user_has_credential=(!is_null($user))?$user->hasCredential($credentials):FALSE;
+		if($link_is_public){
+			$display=TRUE;
+		}
+		else if($link_requires_login&&$user_is_loggedin){
+			$display=TRUE;
+		}
+		else if($user_has_credential){
+			$display=TRUE;
+		}
+		return $display;
+	}
+	private static $appTools=[];
+	public static function addToAppTools($entry){
+		static::$appTools[]=[
+			"name"=>$entry["name"],
+			"url"=>$entry["url"],
+			"credentials"=>$entry["credentials"]
+		];
+	}
 	public static function renderBottom(){
 		?>
 		</div><!-- #content-->
 		</div><!-- #container-->
 		<div class="sidebar scroll-pane" id="sideLeft">
 		<?php 
-		$layout=simplexml_load_file("$_SERVER[DOCUMENT_ROOT]/resources/layout.xml");
+		$layout=simplexml_load_file("$_SERVER[DOCUMENT_ROOT]/../resources/layout.xml");
 		foreach($layout->leftbar->group as $group ){
 		?>
 		<div class="groupwrapper">
@@ -116,22 +144,8 @@ class ThisPage{
 			<div class="entrywrapper">
 			<?php 
 				foreach ($group->entry as $entry){
-					$credentials=array_unique(array_map(null, explode(',', $entry["credentials"])));
-					$display=FALSE;
-					$user=NULL;
-					$user_is_loggedin=!is_null($user=ThisPage::getUser());
-					$link_is_public=in_array("PUBLIC",$credentials);
-					$link_requires_login=in_array("LOGIN",$credentials);
-					$user_has_credential=(!is_null($user))?$user->hasCredential($credentials):FALSE;
-					if($link_is_public){
-						$display=TRUE;
-					}
-					else if($link_requires_login&&$user_is_loggedin){
-						$display=TRUE;
-					}
-					else if($user_has_credential){
-						$display=TRUE;
-					}
+					$credentials=$entry["credentials"];
+					$display=static::displaySBentry($credentials);
 					if($display==TRUE){
 						?>
 						<div class="entry"><a href="<?php echo $entry["url"]?>" ><span class="text"><?php echo $entry?></span></a></div>
@@ -150,23 +164,49 @@ class ThisPage{
 		<div id="AppBarTitle">Application Bar</div>
 		<div id="AppTools" class="scroll-pane">
 		<?php 
+		foreach (static::$appTools as $tool){
+			$url=$tool["url"];
+			$credentials=$tool["credentials"];
+			$display=static::displaySBentry($credentials);
+			if($display==TRUE){
+				$absurl=$url;
+				if(strncmp($url, "\\",1)){
+					$pattern="/^".preg_quote($_SERVER['DOCUMENT_ROOT'])."/";
+					$absurl=preg_replace($pattern, "",getcwd())."\\".$url;
+				}
+				?><div class="entry"><a href="<?php echo $absurl;?>?ref=<?php echo parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);?>"><span class="text"><?php echo $tool["name"]?></span></a></div><?php
+			}
+		}
+		
 		$current_dir=getcwd();
 		$orig_dir=getcwd();
-		while($current_dir!="$_SERVER[DOCUMENT_ROOT]"){
+		$reached_doc_root=false;
+		$exit=false;
+		while(!$exit){
 			$apptools=simplexml_load_file($current_dir."\AppTools.xml");
 			if($apptools){
 				foreach ($apptools->tool as $tool){
 					$url=$tool["url"];
-					$absurl=$url;
-					if(strncmp($url, "\\",1)){
-						$pattern="/^".preg_quote($_SERVER[DOCUMENT_ROOT]."\\Applications")."/";
-						$absurl=preg_replace($pattern, "",getcwd())."\\".$url.(is_dir($url)?"\\index.php":"");
+					$credentials=$tool["credentials"];
+					$display=static::displaySBentry($credentials);
+					if($display==TRUE){
+						$absurl=$url;
+						if(strncmp($url, "\\",1)){
+							$pattern="/^".preg_quote($_SERVER['DOCUMENT_ROOT'])."/";
+							$absurl=preg_replace($pattern, "",getcwd())."\\".$url;
+						}
+					?><div class="entry"><a href="<?php echo $absurl;?>?ref=<?php echo parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);?>"><span class="text"><?php echo $tool?></span></a></div><?php
 					}
-					?><div class="entry"><a href="<?php echo $absurl;?>?ref=<?php echo parse_url($_SERVER[REQUEST_URI], PHP_URL_PATH);?>"><span class="text"><?php echo $tool?></span></a></div><?php
 				}
 			}
 			chdir(dirname(getcwd()));
 			$current_dir=getcwd();
+			if($reached_doc_root){
+				$exit=true;
+			}
+			if($current_dir==$_SERVER['DOCUMENT_ROOT']){
+				$reached_doc_root=true;
+			}
 		}
 		chdir($orig_dir);
 		?>

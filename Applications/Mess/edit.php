@@ -1,9 +1,16 @@
 <?php
-require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
+require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 require_once 'Mess.php';
 ThisPage::renderTop("Mess &raquo; Edit");
 ThisPage::allowsCredentials(["LOGIN"]);
 $key=Mess::keyFromDate($_GET["ts"]);
+$data=$_POST["M"];
+$comment=$_POST["comment"];
+$user=ThisPage::getUser();
+if($_POST["mess_submit"]){
+	$Mess=new Mess($user);
+	if(!$Mess->add($key,$data,$comment))$Mess->edit($key,$data,$comment);
+}
 ?>
 <link rel="stylesheet" href="style.css" type="text/css"/>
 <link rel="stylesheet" href="/Resources/jquery-ui-1.10.3.custom.css" type="text/css"/>
@@ -39,7 +46,7 @@ $food_list=Mess::getFoodList();
 <div style="clear: both;"></div>
 
 
-<form id="mess_form" name="mess_form" method="get">
+<form id="mess_form" name="mess_form" method="POST">
 <table class="table" id="mess_time_table">
 <tr>
 	<td></td>

@@ -1,5 +1,5 @@
 <?php 
-require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
+require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 
 $mysql=MySQL::getInstance();
 $conn=new mysqli($mysql->domain, $mysql->username, $mysql->password,$mysql->database, $mysql->port);

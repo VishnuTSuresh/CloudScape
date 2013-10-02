@@ -9,7 +9,7 @@ class MySQL
 	public $domain,$port,$username,$password,$database;
 	private static $instance,$mysqli;
 	private function __construct(){
-		$MySQL=simplexml_load_file("$_SERVER[DOCUMENT_ROOT]/resources/MySQL.xml");
+		$MySQL=simplexml_load_file("$_SERVER[DOCUMENT_ROOT]/../resources/MySQL.xml");
 		$this->domain=$MySQL->domain;
 		$this->port=(int)$MySQL->port;
 		$this->username=$MySQL->username;

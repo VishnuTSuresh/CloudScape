@@ -30,7 +30,7 @@ function init_cell(day,period){
 				entry_element.click(function(){
 					self.removeItem(items[item.id]);
 				});
-				var input=$("<input type='hidden' name="+day.slice(0,2)+"["+period.slice(0,1)+"][] />").val(item.id);
+				var input=$("<input type='hidden' name=M["+day.slice(0,2)+"]["+period.slice(0,1)+"][] />").val(item.id);
 				entry_element.append(input);
 				items[item.id]={
 					id:item.id,

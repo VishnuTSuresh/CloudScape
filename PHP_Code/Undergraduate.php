@@ -2,7 +2,7 @@
 /*
  * @author Vishnu T Suresh
  */
-require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
+require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 class Undergraduate extends User{
 	protected $enroll_no;
 	private function __construct($user_id){

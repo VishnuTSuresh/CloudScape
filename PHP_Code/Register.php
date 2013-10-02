@@ -2,7 +2,7 @@
 /*
  * Author: Rajas Shah
  */
-require_once "$_SERVER[DOCUMENT_ROOT]/PHP_Code/__autoload.php";
+require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 class Register
 {
 	private $userId, $fname, $lname;
