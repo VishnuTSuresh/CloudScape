@@ -5,7 +5,7 @@
 require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 ThisPage::renderTop("OPENCHEST");
 ?>
-<h1>OPENCHEST</h1>
+<h1>Openchest</h1>
 <form action="?ref=<?php echo $_GET['ref']; ?>" method="post" enctype="multipart/form-data">
 <fieldset><legend>Upload File</legend>
 Filename: <input type="file" name="file" id="file" />
