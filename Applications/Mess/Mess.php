@@ -145,5 +145,17 @@ class Mess extends UGCS{
 		$data=NULL;
 		return $data;
 	}
+	protected function appDeleteBinding($key){
+		$mysql=MySQL::getConnection();
+		$query="UPDATE mess_timetable_primary SET current=0 WHERE week='$key'";
+		$mysql->query($query);
+	}
+	protected function appUndoBinding($key,$value){
+		$mysql=MySQL::getConnection();
+		$query="UPDATE mess_timetable_primary SET current=0 WHERE week='$key'";
+		$mysql->query($query);
+		$query="UPDATE mess_timetable_primary SET current=1 WHERE id='$value'";
+		$mysql->query($query);
+	}
 }
 ?>
