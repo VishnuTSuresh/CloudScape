@@ -2,4 +2,5 @@
 .project
 imagecache/
 .settings/
+Resources/MySQL.xml
 *.bak
