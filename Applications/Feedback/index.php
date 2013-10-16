@@ -43,6 +43,26 @@ $(document).ready(function(){
 	});
 });
 </script>
+<?php
+	$user=ThisPage::getUser();
+	if ($user != NULL){
+		$admin = $user->hasCredential(["ADMIN"]);
+	} else {
+		$admin = FALSE;
+	}
+	if ($admin) {
+		if (isset($_POST['Review'])) {
+			$mysql=MySQL::getConnection();
+			$feedbackID = $_POST['feedbackID'];
+			if ($mysql->query("UPDATE feedback SET review=1 WHERE feedback_id=$feedbackID")) {
+				?>
+					<div id="thankyou" class="success">Feeback updated as Reviewed.</div>
+					<?php 
+				} else {
+					echo "Query failed: (" . $mysqli->errno . ") " . $mysqli->error;
+				}
+		}
+		?>
 <style rel="stylesheet">
 table
 {
@@ -67,26 +87,6 @@ tbody tr:hover td
 }
 
 </style>
-<?php
-	$user=ThisPage::getUser();
-	if ($user != NULL){
-		$admin = $user->hasCredential(["ADMIN"]);
-	} else {
-		$admin = FALSE;
-	}
-	if ($admin) {
-		if (isset($_POST['Review'])) {
-			$mysql=MySQL::getConnection();
-			$feedbackID = $_POST['feedbackID'];
-			if ($mysql->query("UPDATE feedback SET review=1 WHERE feedback_id=$feedbackID")) {
-				?>
-					<div id="thankyou" class="success">Feeback updated as Reviewed.</div>
-					<?php 
-				} else {
-					echo "Query failed: (" . $mysqli->errno . ") " . $mysqli->error;
-				}
-		}
-		?>
 		<h1>Feedbacks List</h1>
 		<div class="form">
 		<table width="100%">
