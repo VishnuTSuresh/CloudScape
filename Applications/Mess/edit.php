@@ -3,11 +3,11 @@ require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 require_once 'Mess.php';
 ThisPage::renderTop("Mess &raquo; Edit");
 ThisPage::allowsCredentials(["LOGIN"]);
-$key=Mess::keyFromDate($_GET["ts"]);
-$data=$_POST["M"];
-$comment=$_POST["comment"];
+$key=Mess::keyFromDate(isset($_GET["ts"])?$_GET["ts"]:null);
+$data=isset($_POST["M"])?$_POST["M"]:null;
+$comment=isset($_POST["comment"])?$_POST["comment"]:null;
 $user=ThisPage::getUser();
-if($_POST["mess_submit"]){
+if(isset($_POST["mess_submit"])){
 	$Mess=new Mess($user);
 	if(!$Mess->add($key,$data,$comment))$Mess->edit($key,$data,$comment);
 }

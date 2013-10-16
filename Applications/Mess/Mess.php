@@ -99,45 +99,37 @@ class Mess extends UGCS{
 		$query="SELECT food_item,day,period FROM mess_timetable WHERE id=$value";
 		$result=$mysql->query($query);
 		$data=[
-			"MONDAY"=>[
-				"BREAKFAST"=>[],
-				"LUNCH"=>[],
-				"DINNER"=>[]
+			"BREAKFAST"=>[
+				"MONDAY"=>[],
+				"TUESDAY"=>[],
+				"WEDNESDAY"=>[],
+				"THURSDAY"=>[],
+				"FRIDAY"=>[],
+				"SATURDAY"=>[],
+				"SUNDAY"=>[]
 			],
-			"TUESDAY"=>[
-				"BREAKFAST"=>[],
-				"LUNCH"=>[],
-				"DINNER"=>[]
+			"LUNCH"=>[
+				"MONDAY"=>[],
+				"TUESDAY"=>[],
+				"WEDNESDAY"=>[],
+				"THURSDAY"=>[],
+				"FRIDAY"=>[],
+				"SATURDAY"=>[],
+				"SUNDAY"=>[]
 			],
-			"WEDNESDAY"=>[
-				"BREAKFAST"=>[],
-				"LUNCH"=>[],
-				"DINNER"=>[]
-			],
-			"THURSDAY"=>[
-				"BREAKFAST"=>[],
-				"LUNCH"=>[],
-				"DINNER"=>[]
-			],
-			"FRIDAY"=>[
-				"BREAKFAST"=>[],
-				"LUNCH"=>[],
-				"DINNER"=>[]
-			],
-			"SATURDAY"=>[
-				"BREAKFAST"=>[],
-				"LUNCH"=>[],
-				"DINNER"=>[]
-			],
-			"SUNDAY"=>[
-				"BREAKFAST"=>[],
-				"LUNCH"=>[],
-				"DINNER"=>[]
+			"DINNER"=>[
+				"MONDAY"=>[],
+				"TUESDAY"=>[],
+				"WEDNESDAY"=>[],
+				"THURSDAY"=>[],
+				"FRIDAY"=>[],
+				"SATURDAY"=>[],
+				"SUNDAY"=>[]
 			],
 		];
 		if($result){
 		while($row=$result->fetch_assoc()){
-			$data[$row["day"]][$row["period"]][]=$row["food_item"];
+			$data[$row["period"]][$row["day"]][]=$row["food_item"];
 		}}
 		return $data;
 	}
@@ -157,5 +149,6 @@ class Mess extends UGCS{
 		$query="UPDATE mess_timetable_primary SET current=1 WHERE id='$value'";
 		$mysql->query($query);
 	}
+	protected static $homepage="/Mess";
 }
 ?>

@@ -36,5 +36,44 @@ class MySQL
 		}
 		return MySQL::$mysqli;
 	}
+	public static function query($query,$parameters,$callback){
+		$mysql=static::getConnection();
+		$result=null;
+		if(is_array($parameters)&&(sizeof($parameters)>0)){
+			$stmt=$mysql->prepare($query);
+			$type="";
+			$r_parameters=[];
+			foreach ($parameters as $parameter){
+				$r_parameters[]=&$parameter;
+				switch (gettype($parameter)){
+					case "integer":
+						$type.="i";
+						break;
+					case "string":
+						$type.="s";
+						break;
+					case "double":
+						$type.="d";
+						break;
+				}
+			}
+			array_unshift($r_parameters, $type);
+			call_user_func_array([$stmt,"bind_param"],$r_parameters);
+			$stmt->execute();
+			$result=$stmt->get_result();
+		}
+		else{
+			$result=$mysql->query($query);
+		}
+		
+		if(!$callback||is_bool($result))return $result;
+		if(is_object($result)){
+			while($row=$result->fetch_assoc()){
+				$callback($row);
+			}
+			$result->data_seek(0);
+			return $result;
+		}
+	}
 }
 ?>

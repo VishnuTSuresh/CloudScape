@@ -33,5 +33,6 @@ class Guide extends UGCS{
 			return false;
 		}
 	}
+	protected static $homepage="/Guide/";
 }
 ?>
