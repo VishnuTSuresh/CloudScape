@@ -21,14 +21,16 @@ if(isset($_POST["mess_submit"])){
 var Mess=Mess||{};
 Mess.FoodList={
 <?php 
-	$food_list=Mess::getFoodList();
-	while($food_item=$food_list->fetch_assoc()){
-		echo($food_item["id"]);?>:{
-	id:<?php echo($food_item["id"]);?>,
-	name:"<?php echo($food_item["name"]);?>"
+$food_list=MessFood::getFoodList();
+foreach($food_list as $id=>$food){
+	if($food["state"]==1){
+		echo($id);?>:{
+	id:<?php echo($id);?>,
+	name:"<?php echo($food["name"]);?>"
 },
 <?php
 	}
+}
 ?>
 };
 </script>

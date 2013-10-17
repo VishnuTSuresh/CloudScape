@@ -25,6 +25,8 @@ if(isset($_GET["id"])){
 	<td>Sunday</td>
 </tr>
 <?php
+$food_list=MessFood::getFoodList();
+
 $timetable=isset($_GET["id"])?Mess::getDataById($_GET["id"]):Mess::getData($key);
 foreach ($timetable as $period=>$meals)
 {
@@ -35,7 +37,7 @@ foreach ($timetable as $period=>$meals)
 		foreach ($food_items as $food_item)
 		{
 			?>
-			<div ><?php echo $food_item;?></div>
+			<div ><?php echo $food_list[$food_item]["name"];?></div>
 			<?php 
 		}
 		?></div></td><?php

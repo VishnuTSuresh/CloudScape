@@ -51,7 +51,7 @@ class ThisPage{
 		<html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<title>ISW &rsaquo; <?php echo $title?></title>
+		<title>CS &rsaquo; <?php echo $title?></title>
 		
 		<link rel="stylesheet" href="/resources/style.css" type="text/css""/>
 		<link type="text/css" href="/resources/jquery.jscrollpane.css" rel="stylesheet"/>
@@ -68,7 +68,7 @@ class ThisPage{
 		<body>
 		<div id="wrapper">
 		<div id="header">
-        <div id="logo"><a href="/Home">Information Services Website</a></div>
+        <div id="logo"><a href="/Home">CloudScape</a></div>
         <?php $user=ThisPage::getUser();
         if($user){
         ?>
