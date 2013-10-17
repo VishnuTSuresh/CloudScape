@@ -3,11 +3,11 @@ require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 require_once 'Mess.php';
 ThisPage::renderTop("Mess &raquo; Edit");
 ThisPage::allowsCredentials(["LOGIN"]);
-$key=Mess::keyFromDate($_GET["ts"]);
-$data=$_POST["M"];
-$comment=$_POST["comment"];
+$key=Mess::keyFromDate(isset($_GET["ts"])?$_GET["ts"]:null);
+$data=isset($_POST["M"])?$_POST["M"]:null;
+$comment=isset($_POST["comment"])?$_POST["comment"]:null;
 $user=ThisPage::getUser();
-if($_POST["mess_submit"]){
+if(isset($_POST["mess_submit"])){
 	$Mess=new Mess($user);
 	if(!$Mess->add($key,$data,$comment))$Mess->edit($key,$data,$comment);
 }
@@ -21,14 +21,16 @@ if($_POST["mess_submit"]){
 var Mess=Mess||{};
 Mess.FoodList={
 <?php 
-	$food_list=Mess::getFoodList();
-	while($food_item=$food_list->fetch_assoc()){
-		echo($food_item["id"]);?>:{
-	id:<?php echo($food_item["id"]);?>,
-	name:"<?php echo($food_item["name"]);?>"
+$food_list=MessFood::getFoodList();
+foreach($food_list as $id=>$food){
+	if($food["state"]==1){
+		echo($id);?>:{
+	id:<?php echo($id);?>,
+	name:"<?php echo($food["name"]);?>"
 },
 <?php
 	}
+}
 ?>
 };
 </script>

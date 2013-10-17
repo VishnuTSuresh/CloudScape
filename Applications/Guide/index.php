@@ -5,8 +5,8 @@ ThisPage::renderTop("Guide");
 ?>
 <h1><a style="font:inherit;color:inherit;" href="/Guide">Guide</a></h1>
 <?php
-$ref=$_GET["ref"];
-$id=$_GET["id"];
+$ref=isset($_GET["ref"])?$_GET["ref"]:null;
+$id=isset($_GET["id"])?$_GET["id"]:null;
 if($id){
 	$meta=Guide::getMetaById($id);
 	$ref=$meta["key"];
@@ -27,7 +27,7 @@ if($ref){
 	$Guide=new Guide($user);
 	if($id){
 		?>
-		<div class="error">This is an old revision of this page. It may differ significantly from the current revision. </div>
+		<div class="warning">This is an old revision of this page. It may differ significantly from the current revision. </div>
 		<?php 
 	}
 	if($id){
@@ -37,14 +37,12 @@ if($ref){
 		$data=Guide::getData($key);
 	}
 	if($data){
-if(!$history){
 		if($user){?>
 			<a href=edit.php?ref=<?php echo $key;?>>Edit</a><?php 
 		}
 		?>
-		<a href=history.php?ref=<?php echo $key;?>>History</a><hr />
+		<a href="/UGCS/History?k=<?php echo base64_encode($key);?>&c=<?php echo base64_encode("Guide");?>">History</a><hr />
 		<?php 
-		}
 		echo $data;
 	}
 	else{

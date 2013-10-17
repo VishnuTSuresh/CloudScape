@@ -10,7 +10,7 @@ if($_POST["submit"]&&$id){
 	$comment=$_POST["comment"];
 	$Guide=new Guide($curruser);
 	if($Guide->undo($id, $comment)){
-		header("location:History.php?ref=".$meta["key"]);
+		echo "<h1>UNDO SUCCESSFUL</h1>";
 	}
 	else{
 		echo "<h1>UNDO FAILED FOR SOME UNKNOWN REASON</h1>";

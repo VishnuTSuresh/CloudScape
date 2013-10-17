@@ -1,6 +1,7 @@
 .buildpath
 .project
 imagecache/
+Applications/imagecache/
 .settings/
 Resources/MySQL.xml
 *.bak

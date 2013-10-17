@@ -52,7 +52,7 @@ class ThisPage{
 		<html xmlns="http://www.w3.org/1999/xhtml">
 		<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<title>ISW &rsaquo; <?php echo $title?></title>
+		<title>CS &rsaquo; <?php echo $title?></title>
 		
 		<link rel="stylesheet" href="/resources/style.css" type="text/css""/>
 		<link type="text/css" href="/resources/jquery.jscrollpane.css" rel="stylesheet"/>
@@ -69,7 +69,7 @@ class ThisPage{
 		<body>
 		<div id="wrapper">
 		<div id="header">
-        <div id="logo"><a href="/Home">Information Services Website</a></div>
+        <div id="logo"><a href="/Home">CloudScape</a></div>
         <?php $user=ThisPage::getUser();
         if($user){
         ?>
@@ -123,15 +123,7 @@ class ThisPage{
 		}
 		return $display;
 	}
-	private static $appTools=[];
-	public static function addToAppTools($entry){
-		static::$appTools[]=[
-			"name"=>$entry["name"],
-			"url"=>$entry["url"],
-			"credentials"=>$entry["credentials"]
-		];
-	}
-	public static function renderBottom(){
+	public static function renderBottom($options=NULL){
 		?>
 		</div><!-- #content-->
 		</div><!-- #container-->
@@ -165,18 +157,27 @@ class ThisPage{
 		<div id="AppBarTitle">Application Bar</div>
 		<div id="AppTools" class="scroll-pane">
 		<?php 
-		foreach (static::$appTools as $tool){
-			$url=$tool["url"];
-			$credentials=$tool["credentials"];
-			$display=static::displaySBentry($credentials);
-			if($display==TRUE){
-				$absurl=$url;
-				if(strncmp($url, "\\",1)){
-					$pattern="/^".preg_quote($_SERVER['DOCUMENT_ROOT'])."/";
-					$absurl=preg_replace($pattern, "",getcwd())."\\".$url;
+		$appTools=[];
+		if(isset($options))$appTools=$options["appTools"];
+		if(is_array($appTools))foreach ($appTools as $tool){
+			if(is_array($tool)){
+				$url=$tool["url"];
+				$query=isset($tool["query"])?$tool["query"]:null;
+				$credentials=$tool["credentials"];
+				$display=static::displaySBentry($credentials);
+				if($display==TRUE){
+					$query_string="";
+					if(is_array($query))foreach ($query as $key=>$value){
+						$query_string.="&".$key."=".$value;
+					}
+					$absurl=$url;
+					if(strncmp($url, "\\",1)){
+						$pattern="/^".preg_quote($_SERVER['DOCUMENT_ROOT'])."/";
+						$absurl=preg_replace($pattern, "",getcwd())."\\".$url;
+					}
+					?><div class="entry"><a href="<?php echo $absurl;?>?ref=<?php echo parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);?><?php echo $query_string;?>"><span class="text"><?php echo $tool["name"]?></span></a></div><?php
 				}
-				?><div class="entry"><a href="<?php echo $absurl;?>?ref=<?php echo parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);?>"><span class="text"><?php echo $tool["name"]?></span></a></div><?php
-			}
+			}	
 		}
 		
 		$current_dir=getcwd();
@@ -184,7 +185,7 @@ class ThisPage{
 		$reached_doc_root=false;
 		$exit=false;
 		while(!$exit){
-			$apptools=simplexml_load_file($current_dir."\AppTools.xml");
+			$apptools=@simplexml_load_file($current_dir."\AppTools.xml");
 			if($apptools){
 				foreach ($apptools->tool as $tool){
 					$url=$tool["url"];
