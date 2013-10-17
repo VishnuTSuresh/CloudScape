@@ -7,10 +7,12 @@
 require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 class User{
 	protected $user_id, $username, $firstname, $lastname, $password, $type;
-	private function __construct($user_id){
+	private function __construct($user_id)
+        {
 		$this->user_id=$user_id;
 	}
-	public static function withUserId($user_id){
+	public static function withUserId($user_id)
+               {
 		$user=new User($user_id);
 		if($user->hasCredential(["UNDERGRADUATE"])){
 			$ug=Undergraduate::withUserId($user_id);
@@ -30,7 +32,8 @@ class User{
 		$result=$mysql->query($query);
 		if($result)
 		{
-			if($result->num_rows){
+			if($result->num_rows)
+                       {
 				$row=$result->fetch_assoc();
 				$user=User::withUserId($row["user_id"]);
 				return $user;
