@@ -69,25 +69,32 @@ class ThisPage{
 		<div id="wrapper">
 		<div id="header">
         <div id="logo"><a href="/Home">CloudScape</a></div>
+        <div class="dropdown_bg"><div class="user_name">
+        <?php $user=ThisPage::getUser();
+        if($user){
+			echo $user->getFirstName()." ";
+			echo $user->getLastName();
+		}
+        ?>
+        </div>
+        <div class="dropdown_bg_inner">
+        </div>
+        </div>
+        </div><!-- #header-->
         <?php $user=ThisPage::getUser();
         if($user){
         ?>
         <div class="dropdown">
-		<a class="account" ><?php 
-        echo $user->getFirstName()." ";
-        echo $user->getLastName();
-        ?></a>
-		
+        <img alt="S" src="/Resources/images/settings.png" width="15px" style="padding: 6px;">
+		</div>
 		<div class="submenu">
 		<ul class="root">
-		<li ><a href=/Profiles">Profiles</a></li>
-      	<li ><a href=/Preferences">Preferences</a></li>
-      	<li ><a href=/RegistrationDetails">Registration Details</a></li>
-      	<li ><a href=/ChangePassword">Change Password</a></li>
+		<li ><a href="/Profiles">Profiles</a></li>
+      	<li ><a href="/Preferences">Preferences</a></li>
+      	<li ><a href="/RegistrationDetails">Registration Details</a></li>
+      	<li ><a href="/ChangePassword">Change Password</a></li>
       	<li ><a href="/Authentication/Logout">Logout</a></li>
 		</ul>
-		</div>
-		
 		</div>
         <?php }
         else
@@ -96,7 +103,7 @@ class ThisPage{
 			<a href="/Authentication/Register" class=account>Register</a>
 			</div>
   <?php }?>
-		</div><!-- #header-->
+		
 		<div id="middle">
 		<div id="container">
 		<div id="content">	
@@ -130,24 +137,32 @@ class ThisPage{
 		<?php 
 		$layout=simplexml_load_file("$_SERVER[DOCUMENT_ROOT]/../resources/layout.xml");
 		foreach($layout->leftbar->group as $group ){
+		$oneentrymade=false;
 		?>
-		<div class="groupwrapper">
-		<div class="group"><?php echo $group["name"]?></div>
-			<div class="entrywrapper">
 			<?php 
 				foreach ($group->entry as $entry){
 					$credentials=$entry["credentials"];
 					$display=static::displaySBentry($credentials);
 					if($display==TRUE){
+						if(!$oneentrymade){
+						?>
+						<div class="groupwrapper">
+							<div class="group"><?php echo $group["name"]?></div>
+							<div class="entrywrapper">
+						<?php 
+						}
+						$oneentrymade=true;
 						?>
 						<div class="entry"><a href="<?php echo $entry["url"]?>" ><span class="text"><?php echo $entry?></span></a></div>
 						<?php 
 					}
 				}
-			?>
+				if($oneentrymade){
+				?>
+				</div>
 			</div>
-		</div>
-		<?php
+			<?php
+			}
 		}
 		?>
 		</div><!-- .sidebar#sideLeft -->

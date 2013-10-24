@@ -3,20 +3,19 @@ $(function()
 	$(document).ready(function()
 			{
 
-			$(".account").click(function()
+			$(".dropdown").click(function()
 			{
-			var X=$(this).attr('id');
-			if(X==1)
-			{
-			$(".submenu").hide();
-			$(this).attr('id', '0'); 
-			}
-			else
-			{
-			$(".submenu").show();
-			$(this).attr('id', '1');
-			}
-
+				var X=$(this).hasClass('dropdown_active');
+				if(X==true)
+				{
+					$(".submenu").hide();
+					$(this).removeClass('dropdown_active'); 
+				}
+				else
+				{
+					$(".submenu").show();
+					$(this).addClass('dropdown_active');
+				}
 			});
 
 			//Mouse click on sub menu
@@ -26,7 +25,7 @@ $(function()
 			});
 
 			//Mouse click on my account link
-			$(".account").mouseup(function()
+			$(".dropdown").mouseup(function()
 			{
 			return false
 			});
@@ -36,7 +35,7 @@ $(function()
 			$(document).mouseup(function()
 			{
 			$(".submenu").hide();
-			$(".account").attr('id', '');
+			$(".dropdown").removeClass('dropdown_active');
 			});
 			});
 });

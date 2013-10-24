@@ -1,6 +1,5 @@
 <?php
 require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
-require_once 'Mess.php';
 ThisPage::renderTop("Mess &raquo; Edit");
 ThisPage::allowsCredentials(["LOGIN"]);
 $key=Mess::keyFromDate(isset($_GET["ts"])?$_GET["ts"]:null);
@@ -19,6 +18,27 @@ if(isset($_POST["mess_submit"])){
 <script type="text/javascript" src="script.js"></script>
 <script type="text/javascript">
 var Mess=Mess||{};
+Mess.TimeTableJSON={
+<?php 
+$timetable=Mess::getData($key);
+if($timetable){
+	foreach ($timetable as $period=>$meals)
+	{
+		echo "\t".ucwords(strtolower($period)).":{\n\t\t";
+		foreach ($meals as $meal=>$food_items)
+		{
+			echo ucwords(strtolower($meal)).":";
+			echo "[";
+			foreach ($food_items as $food_item){
+				echo $food_item.",";
+			}
+			echo "],\n\t\t"; 
+		}
+		echo "\n\t},\n";
+	}
+}
+?>
+};
 Mess.FoodList={
 <?php 
 $food_list=MessFood::getFoodList();

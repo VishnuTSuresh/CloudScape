@@ -39,28 +39,58 @@ class MySQL
 	public static function query($query,$parameters,$callback){
 		$mysql=static::getConnection();
 		$result=null;
-		if(is_array($parameters)&&(sizeof($parameters)>0)){
-			$stmt=$mysql->prepare($query);
-			$type="";
-			$r_parameters=[];
-			foreach ($parameters as $parameter){
-				$r_parameters[]=&$parameter;
-				switch (gettype($parameter)){
+		$count=substr_count($query,"?");
+		if($count>0){
+			if(is_array($parameters)&&(sizeof($parameters)>0)){
+				
+				$stmt=$mysql->prepare($query);
+				$type="";
+				$r_parameters=[];
+				foreach ($parameters as $index=>$parameter){
+					$r_parameters[]=&$parameters[$index];
+					switch (gettype($parameter)){
+						case "integer":
+							$type.="i";
+							break;
+						case "string":
+							$type.="s";
+							break;
+						case "double":
+							$type.="d";
+							break;
+					}
+				}
+				array_unshift($r_parameters, $type);
+				call_user_func_array([$stmt,"bind_param"],$r_parameters);
+				$stmt->execute();
+				$result=$stmt->get_result();
+			}
+			elseif(is_int($parameters)||is_string($parameters)||is_double($parameters)){
+				$stmt=$mysql->prepare($query);
+				
+				$type="";
+				switch (gettype($parameters)){
 					case "integer":
-						$type.="i";
+						$type="i";
 						break;
 					case "string":
-						$type.="s";
+						$type="s";
 						break;
 					case "double":
-						$type.="d";
+						$type="d";
 						break;
 				}
+				$type=str_repeat($type, $count);
+				$v_parameters=array_fill(1, $count, $parameters);
+				$r_parameters=[];
+				foreach ($v_parameters as $index=>$parameter){
+					$r_parameters[]=&$v_parameters[$index];
+				}
+				array_unshift($r_parameters, $type);
+				call_user_func_array([$stmt,"bind_param"],$r_parameters);
+				$stmt->execute();
+				$result=$stmt->get_result();
 			}
-			array_unshift($r_parameters, $type);
-			call_user_func_array([$stmt,"bind_param"],$r_parameters);
-			$stmt->execute();
-			$result=$stmt->get_result();
 		}
 		else{
 			$result=$mysql->query($query);

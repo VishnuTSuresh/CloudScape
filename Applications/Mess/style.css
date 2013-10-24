@@ -26,6 +26,16 @@ table.table td.period:HOVER{
 	background:#E2F0D6;
 	cursor: pointer;
 }
+table.table td.period.index:HOVER{
+	background:none;
+	cursor: default;
+}
+table.table td.period.today{
+	background:#E2F0D6;
+}
+table.table td.period.today:HOVER{
+	background:#E2F0D6;
+}
 table.table td.period_selected{
 	background:#CCD9C1;
 	cursor: default;
@@ -100,4 +110,10 @@ display:none;
 }
 #mess_form_bottom{
 	padding:10px;
+}
+.warning{
+
+}
+#mess_calender_container{
+	overflow: auto;
 }

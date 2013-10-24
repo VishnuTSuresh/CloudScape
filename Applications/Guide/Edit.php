@@ -7,12 +7,12 @@ if($_POST["content"]){
 	$purifier = new HTMLPurifier($config);
 	$clean_html = $purifier->purify($_POST["content"]);
 	$Guide=new Guide(ThisPage::getUser());
-	if($Guide->add($_GET[ref],$clean_html,$_POST["comment"])){
-		header("Location:/Guide/index.php?ref=$_GET[ref]");
+	if($Guide->add($_GET[key],$clean_html,$_POST["comment"])){
+		header("Location:/Guide/index.php?ref=$_GET[key]");
 	}
-	else if($Guide->edit($_GET[ref],$clean_html,$_POST["comment"])){
+	else if($Guide->edit($_GET[key],$clean_html,$_POST["comment"])){
 		
-		header("Location:/Guide/index.php?ref=$_GET[ref]");
+		header("Location:/Guide/index.php?ref=$_GET[key]");
 	}
 }
 ThisPage::renderTop("Guide");
@@ -55,15 +55,15 @@ $(document).ready(function(){
 <h1>Guide</h1>
 
 <?php 
-$ref=$_GET["ref"];
+$ref=$_GET["key"];
 if($ref){
 	$user=ThisPage::getUser();
 	$Guide=new Guide($user);
 	?>
 	<h3>Edit &raquo; <?php echo implode(" &rsaquo; ",explode("/",$ref));?></h3>
 	
-	<form name="editor_form" action="edit.php?ref=<?php echo $_GET["ref"]?>" id="editor_form" method=POST>
-	<textarea id="editor" name=content><?php echo Guide::getData($_GET["ref"]);?></textarea>
+	<form name="editor_form" action="edit.php?key=<?php echo $_GET["key"]?>" id="editor_form" method=POST>
+	<textarea id="editor" name=content><?php echo Guide::getData($_GET["key"]);?></textarea>
 	Comments:
 	<textarea id="comment" name=comment></textarea>
 	<div id="error_box"></div>

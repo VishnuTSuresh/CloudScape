@@ -312,6 +312,9 @@ Class UGCS{
 	 * @param unknown $key
 	 * @param unknown $page
 	 */
+	public static function getHomepage(){
+		return static::$homepage;
+	}
 	public static function renderHistory($key,$page=1){
 		$curr_user=ThisPage::getUser();
 		?>

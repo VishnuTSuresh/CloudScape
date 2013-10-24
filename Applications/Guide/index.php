@@ -37,12 +37,6 @@ if($ref){
 		$data=Guide::getData($key);
 	}
 	if($data){
-		if($user){?>
-			<a href=edit.php?ref=<?php echo $key;?>>Edit</a><?php 
-		}
-		?>
-		<a href="/UGCS/History?k=<?php echo base64_encode($key);?>&c=<?php echo base64_encode("Guide");?>">History</a><hr />
-		<?php 
 		echo $data;
 	}
 	else{
@@ -61,5 +55,17 @@ if($ref){
 else{
 
 }
-ThisPage::renderBottom();
+ThisPage::renderBottom(
+["appTools"=>
+	[
+		["name"=>"Edit","credentials"=>["LOGIN"],"url"=>"Edit.php","query"=>["key"=>$key]],
+		["name"=>"History","credentials"=>["PUBLIC"],"url"=>"\\UGCS\\History\\",
+			"query"=>[
+			"k"=>base64_encode($key),
+			"c"=>base64_encode("Guide"),
+			]
+		]
+	]
+]
+);
 ?>

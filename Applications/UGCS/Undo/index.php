@@ -14,7 +14,7 @@ if($classname){
 	if(isset($_POST["submit"])&&$id){
 		$comment=$_POST["comment"];
 		if($UGCS->undo($id, $comment)){
-			header("location: /UGCS/History?c=".$_GET["c"]."&k=".base64_encode($meta["key"]));
+			//header("location: /UGCS/History?c=".$_GET["c"]."&k=".base64_encode($meta["key"]));
 		}
 		else{
 			echo "<h1>UNDO FAILED FOR SOME UNKNOWN REASON</h1>";
@@ -27,9 +27,7 @@ if($classname){
 		<h3>Undo <?php echo $classname;?> for <?php echo implode("&rsaquo;",preg_split("(\/|\\\\)", $meta["key"]));?> to revision #<?php echo $id?> originally authored by <?php echo $revuser->getFirstName()." ".$revuser->getLastName();?></h3>
 		<form method=POST>
 		Comment (State why you are performing this undo) :
-		<textarea name=comment>
-		
-		</textarea>
+		<textarea name=comment></textarea>
 		<input type="submit" name="submit" value="Submit">
 		</form>
 		<?php 

@@ -11,8 +11,8 @@ body.wide{
 #wrapper {
 	width: 100%;
 }
+
 #header {
-	height: 3em;
 	position: fixed;
 	top:0;
 	left:0;
@@ -20,8 +20,8 @@ body.wide{
 }
 /* Middle
 -----------------------------------------------------------------------------*/
+
 body.wide #middle {
-	margin-top: 3em;
     margin-left: 170px;
 	margin-right: 200px;
 	
@@ -46,19 +46,19 @@ body.wide #middle {
 }
 /* Sidebar Left
 -----------------------------------------------------------------------------*/
+
 body.wide #sideLeft {
 	width: 170px;
 	position: fixed;
-	top:3em;
 	left:0;
 	bottom:0;
 }
 /* Sidebar Right
 -----------------------------------------------------------------------------*/
+
 body.wide #sideRight {
 	width: 190px;
 	position: fixed;
-	top:3em;
 	right:0;
 	bottom:0;
 	
@@ -81,9 +81,11 @@ body.thin #middle {
 }
 /* Sidebar Left
 -----------------------------------------------------------------------------*/
+body.thin .sidebar{
+	min-width: 900px;
+}
 body.thin #sideLeft {
 	position: fixed;
-	top:3em;
 	left:0;
 	height:2em;
 }
@@ -99,7 +101,29 @@ body.thin .entry{
 -----------------------------------------------------------------------------*/
 body.thin #sideRight {
 	position: fixed;
-	top:3em;
 	right:0;
 	height:2em;
+}
+/* Common Properties
+-----------------------------------------------------------------------------*/
+/* Header Height
+-----------------------------------------------------------------------------*/
+body.thin #header{
+	min-width: 900px;
+}
+#header{
+	height: 3em;
+}
+body.wide #middle {
+	margin-top: 2em;
+}
+.submenu,
+body.wide #sideLeft,
+body.wide #sideRight,
+body.thin #sideLeft,
+body.thin #sideRight{
+	top:2em;
+}
+#sideLeft{
+	margin-top:1em;
 }

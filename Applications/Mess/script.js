@@ -109,6 +109,7 @@ $(function(){
 		closeOnEscape: true,
 		draggable: false,
 		resizable:false,
+		"z-index":5,
 	}).parent().draggable();
 	$("#esctox").click(function(){
 		$("#food_list_app").dialog("close");
@@ -181,5 +182,14 @@ $(function(){
 	init_foodsearch();
 	$("ul#food_list").jScrollPane({
 		autoReinitialise:true,
+	});
+	$.each(Mess.TimeTableJSON,function(period, days){
+		$.each(days,function(day, meal){
+			$.each(meal,function(index, food){
+				var item=Mess.FoodList[food];
+				if(item)
+				Mess.TimeTable[day][period].addItem(item);
+			});
+		});
 	});
 });
