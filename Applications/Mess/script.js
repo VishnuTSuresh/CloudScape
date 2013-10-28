@@ -109,7 +109,7 @@ $(function(){
 		closeOnEscape: true,
 		draggable: false,
 		resizable:false,
-		"z-index":5,
+		dialogClass:"food_list_dialog"
 	}).parent().draggable();
 	$("#esctox").click(function(){
 		$("#food_list_app").dialog("close");

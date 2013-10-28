@@ -67,7 +67,9 @@ class MySQL
 			}
 			elseif(is_int($parameters)||is_string($parameters)||is_double($parameters)){
 				$stmt=$mysql->prepare($query);
-				
+				if(!$stmt){
+					;
+				}
 				$type="";
 				switch (gettype($parameters)){
 					case "integer":

@@ -77,15 +77,16 @@ body.thin #header{
 }
 .dropdown 
 {
+	position:fixed;
+	right:0px;
+	top:0px;
 	text-align:center;
 	z-index: 4;
 	color: #ccc;
-	position:fixed;
-	top:0px;
-	right:0px;
 	height:2em;
 	width:30px;
 	cursor: pointer;
+	background: #464646;
 }
 .dropdown_bg{
 	float:right;
@@ -114,6 +115,9 @@ body.thin #header{
 {
 	color: #555;
 	background:white;
+	-webkit-box-shadow: 0px -6px 5px 0px rgba(50, 50, 50, 0.5);
+	-moz-box-shadow: 0px -6px 5px 0px rgba(50, 50, 50, 0.5);
+	box-shadow: 0px -6px 5px 0px rgba(50, 50, 50, 0.5);
 }
 .submenu
 {
@@ -369,7 +373,8 @@ body.thin #AppBarTitle{
 	background-image: none !important;
 	
 }
-body.thin #sideRight{
+body.thin #sideRight {
+background: none;
 }
 #AppBarTitle{
 	text-shadow: 0 -1px 0 #333;

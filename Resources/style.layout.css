@@ -82,12 +82,12 @@ body.thin #middle {
 /* Sidebar Left
 -----------------------------------------------------------------------------*/
 body.thin .sidebar{
-	min-width: 900px;
+	/*min-width: 900px;*/
 }
 body.thin #sideLeft {
-	position: fixed;
-	left:0;
+	position: absolute;
 	height:2em;
+	min-width:900px;
 }
 body.thin .groupwrapper{
 	width:160px;
@@ -100,8 +100,10 @@ body.thin .entry{
 /* Sidebar Right
 -----------------------------------------------------------------------------*/
 body.thin #sideRight {
-	position: fixed;
-	right:0;
+	z-index: 2;
+position: absolute;
+right: 0;
+margin-top: 1em;
 	height:2em;
 }
 /* Common Properties
@@ -109,7 +111,7 @@ body.thin #sideRight {
 /* Header Height
 -----------------------------------------------------------------------------*/
 body.thin #header{
-	min-width: 900px;
+	/*min-width: 900px;*/
 }
 #header{
 	height: 3em;

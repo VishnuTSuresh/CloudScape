@@ -82,6 +82,10 @@ ul#food_list li.food_item:HOVER{
 }
 #food_list_app{
 	outline-color: transparent;
+	z-index: 1;
+}
+.food_list_dialog{
+	z-index: 1;
 }
 .ui-dialog-titlebar{
 display:none;
