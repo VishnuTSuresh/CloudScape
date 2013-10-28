@@ -22,7 +22,8 @@ class ThisPage{
 			header("Location:/Authentication/Login");
 		}
 	}
-	public static function getUser(){
+	public static function getUser()
+	    {
 		$token_no=isset($_COOKIE["token_no"])?$_COOKIE["token_no"]:NULL;
 		$uuid=isset($_COOKIE["uuid"])?$_COOKIE["uuid"]:NULL;
 		if(isset($token_no)){
