@@ -16,6 +16,7 @@ id	|	credentials
 	  	<entry credentials="PUBLIC" url="/Mess">Mess</entry>
 	  	<entry credentials="PUBLIC" url="/OpenChest">Openchest</entry>
 	  	<entry credentials="PUBLIC" url="/OwnText">OwnText</entry>
+	  	<entry credentials="PUBLIC" url="/NoticeBoard">Notice Board</entry>
       </group>
 	  <group name="Utilities">
       	<entry credentials="LOGIN" url="/Inbox">Inbox</entry>

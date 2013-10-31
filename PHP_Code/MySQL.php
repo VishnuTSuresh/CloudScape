@@ -36,7 +36,7 @@ class MySQL
 		}
 		return MySQL::$mysqli;
 	}
-	public static function query($query,$parameters,$callback){
+	public static function query($query,$parameters,$callback=null){
 		$mysql=static::getConnection();
 		$result=null;
 		$count=substr_count($query,"?");
