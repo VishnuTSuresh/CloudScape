@@ -1,5 +1,6 @@
 <?php
 require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
+ThisPage::allowsCredentials(["LOGIN"]);
 ThisPage::renderTop("Add Notice");
 if(isset($_POST["add_notice"])){
 	$user=ThisPage::getUser();
@@ -9,10 +10,10 @@ if(isset($_POST["add_notice"])){
 		$post_date=null;
 		if(isset($_POST["post_date_bool"])){
 			$post_date=isset($_POST["post_date"])?$_POST["post_date"]:null;
-		}echo("asdsa");
+		}
 		if($title&&$content){
 			
-			$notice=new Notice($title, $content,$post_date);
+			$notice=new Notice(["title"=>$title,"content"=> $content,"post_date"=>$post_date,"user"=>$user]);
 			$noticeboard=new NoticeBoard($user);
 			$noticeboard->addNotice($notice);
 		}
@@ -79,7 +80,7 @@ $(document).ready(function(){
 	});
 });
 </script>
-<h1>Add Notice</h1>
+<h1><a href="../">Notice Board</a> &raquo; Add Notice</h1>
 <form name="add_notice" method="post">
 Title:
 <input type="text" name="title">

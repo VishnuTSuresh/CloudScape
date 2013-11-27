@@ -4,5 +4,5 @@
 	<port>3306</port>
 	<username>root</username>
 	<password>sql_sre!</password>
-	<database>isw</database>
+	<database>cloudscape</database>
 </MySQL>
