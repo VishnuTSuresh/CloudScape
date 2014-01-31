@@ -1,4 +1,9 @@
 <?php
+/**
+ *
+ * @author Vishnu T Suresh
+ *
+ */
 require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 if($_POST["type"]=="UNDERGRADUATE"){
 	$username=bin2hex(openssl_random_pseudo_bytes(5));

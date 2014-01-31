@@ -1,5 +1,10 @@
 <?php
 require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
+/**
+ *
+ * @author Vishnu T Suresh
+ *
+ */
 class Mess extends UGCS{
 	protected static $appname="MESS_TIMETABLE";
 	public static function getFoodList(){

@@ -1,0 +1,84 @@
+@CHARSET "ISO-8859-1";
+/* 
+-----------------------------------------------------------------------------*/
+/* Wide Layout
+-----------------------------------------------------------------------------*/
+/*
+-----------------------------------------------------------------------------*/
+body{
+	margin:0px;
+	min-width: 1306px;
+}
+#wrapper {
+	width: 100%;
+}
+
+#header {
+	position: fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+/* Middle
+-----------------------------------------------------------------------------*/
+
+body #middle {
+    margin-left: 170px;
+	margin-right: 200px;
+	
+}
+#middle:after {
+	content: '';
+	clear: both;
+	display: table;
+}
+#container {
+	min-width:900px;
+	width: 100%;
+	float: left;
+	overflow: hidden;
+	margin-right: -100%;
+	padding:5px;
+}
+#content {
+	padding: 10px 10px;
+	min-height:600px;
+	position:relative;
+}
+/* Sidebar Left
+-----------------------------------------------------------------------------*/
+
+body #sideLeft {
+	width: 170px;
+	position: fixed;
+	left:0;
+	bottom:0;
+}
+/* Sidebar Right
+-----------------------------------------------------------------------------*/
+
+body #sideRight {
+	width: 190px;
+	position: fixed;
+	right:0;
+	bottom:0;
+	
+}
+/* Common Properties
+-----------------------------------------------------------------------------*/
+/* Header Height
+-----------------------------------------------------------------------------*/
+#header{
+	height: 3em;
+}
+body #middle {
+	margin-top: 2em;
+}
+.submenu,
+body #sideLeft,
+body #sideRight{
+	top:2em;
+}
+#sideLeft{
+	margin-top:1em;
+}

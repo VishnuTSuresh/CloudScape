@@ -1,4 +1,9 @@
 <?php
+/**
+ *
+ * @author Vishnu T Suresh
+ *
+ */
 require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 class Notice{
 	private $id,$title,$content,$post_date,$user;

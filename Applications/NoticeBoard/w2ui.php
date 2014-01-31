@@ -1,4 +1,9 @@
 <?php
+/**
+ *
+ * @author Vishnu T Suresh
+ *
+ */
 require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
 $cmd=isset($_REQUEST["cmd"])?$_REQUEST["cmd"]:null;
 if($cmd=="get-records"){

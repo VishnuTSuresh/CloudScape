@@ -1,4 +1,9 @@
 <?php
+/**
+ *
+ * @author Vishnu T Suresh
+ *
+ */
 class Credentials{
 	public static function getIdFrom($credential){
 		$mysql=MySQL::getConnection();
