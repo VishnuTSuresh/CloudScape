@@ -63,7 +63,7 @@ foreach($food_list as $id=>$food){
 <?php 
 $food_list=Mess::getFoodList();
 ?>
-<form id="food_list_app">
+<form class="form" id="food_list_app">
 <input type="text" placeholder="Search Food" id="food_search">
 <ul id="food_list">
 </ul>
@@ -73,7 +73,7 @@ $food_list=Mess::getFoodList();
 <div style="clear: both;"></div>
 
 
-<form id="mess_form" name="mess_form" method="POST">
+<form  id="mess_form" name="mess_form" method="POST">
 <table class="table" id="mess_time_table">
 <tr>
 	<td></td>

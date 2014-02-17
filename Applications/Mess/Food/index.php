@@ -36,7 +36,7 @@ border-radius: 3px;
 <script type="text/javascript" src="script.js"></script>
 <h1>Mess &rsaquo; Food</h1>
 <div id="food_container">
-<form method="post" id="add_food" name="add_food">
+<form class="form" method="post" id="add_food" name="add_food">
 	<div>Add Food Item</div>
 	<input type="text" name="name" placeholder="name">
 	<div>Comment:</div>
@@ -44,7 +44,7 @@ border-radius: 3px;
 	<div id="error_box"></div>
 	<input type="submit" name="add_food">
 </form>
-<form method="get" action="Edit.php">
+<form class="form" method="get" action="Edit.php">
 Edit Food:
 	<select name="ref" id="food_list_select">
 		<?php 

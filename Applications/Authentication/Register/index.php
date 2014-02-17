@@ -11,7 +11,7 @@ require_once "$_SERVER[DOCUMENT_ROOT]/../PHP_Code/__autoload.php";
  <link rel="stylesheet" href="style.css" type="text/css" media="screen, projection"/>
 <h1>Register</h1>
 <p>Select your category</p>
-<form name="register" action="step1.php" method="get">
+<form class="form" name="register" action="step1.php" method="get">
 <table id="registerhome">
 <tr><td><input type="radio" name="type" value="UNDERGRADUATE" checked="checked" ></td><td>Undergraduate Student</td></tr>
 <tr><td><input type="radio" name="type" value="POSTGRADUATE" ></td><td>Postgraduate Student</td></tr>

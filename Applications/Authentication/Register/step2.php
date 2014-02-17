@@ -123,7 +123,7 @@ Welcome <?php echo $user->getFirstName()." ".$user->getLastName();?>
 <p>
 Please enter the desired username and password.
 </p>
-<form action="step3.php?user_id=<?php echo $user->getUserId()?>" method="POST"  autocomplete="off">
+<form class="form" action="step3.php?user_id=<?php echo $user->getUserId()?>" method="POST"  autocomplete="off">
 	<label for="username">Username:</label><input type="text" name="username" id="username"/>
 	<div id="usernameavailable"></div>
 	<label for="password">Password:</label><input type="password" name="password" id="password" />

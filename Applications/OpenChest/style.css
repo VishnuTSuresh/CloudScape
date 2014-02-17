@@ -1,0 +1,19 @@
+@CHARSET "ISO-8859-1";
+.openchestrename{
+	float:right;
+}
+.openchestentry{
+	padding:5px;
+	clear:both;
+	float:left;
+	width:100%;
+}
+.openchestlink{
+	float:left;
+}
+.even{
+	background-color: #F5F5F5;
+}
+.openchestcutcopy{
+	float:right;
+}

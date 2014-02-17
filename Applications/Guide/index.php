@@ -47,7 +47,7 @@ if($ref){
 	else{
 		?><hr /><p>This guide is empty.<?php
 		if($user){
-			?><a href=edit.php?ref=<?php echo $key;?>> Click here</a> to add content to this page. Remember that everyone can see who made the edit.</p><?php 
+			?><a href=edit.php?key=<?php echo $key;?>> Click here</a> to add content to this page. Remember that everyone can see who made the edit.</p><?php 
 		}
 		else{
 			?> Please login to edit this page.<?php

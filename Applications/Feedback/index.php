@@ -97,7 +97,7 @@ tbody tr:hover td
 		$result = $mysql->query("SELECT * FROM feedback WHERE review=0");
 		while ($row = $result->fetch_array()) {
 			?>
-			<form action="" method="post">
+			<form class="form" action="" method="post">
 			<tr>
 				<td><?php echo $row[0];?></td>
 				<td><?php echo $row[1];?></td>
@@ -132,7 +132,7 @@ tbody tr:hover td
 			?>
 			<h1>Feedback</h1>
 			<h4>Feedback for  <?php  echo $ref_string;?></h4>
-			<form action="thankyou.php" method="post">
+			<form class="form" action="thankyou.php" method="post">
 			<table>
 			<tr><td>Type:
 			<select name="type">

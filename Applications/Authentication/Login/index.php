@@ -31,7 +31,7 @@ if(isset($_POST["username"])&&isset($_POST["password"])){
 <img src="images/1.jpg?w=1200&h=500&mode=crop" />
 </div>
 <div id="login">
-<form action="" method="POST">
+<form class="form" action="" method="POST">
   <label for="username">Username:</label><br />
   <input type="text" name="username" id="username" value="<?php echo $username?>"></input><br />
   <label for="password">Password:</label><br />

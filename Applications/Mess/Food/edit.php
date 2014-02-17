@@ -71,7 +71,7 @@ MessFood::renderHistory($key);
 if($id)$oldname=MessFood::getDataById($id);
 }
 ?>
-<form method="post" name="edit_food">
+<form class="form" method="post" name="edit_food">
 Food #<?php echo $key;?> <br />
 Name:
 <input type="text" name="new_food_name" value="<?php echo $name,$oldname; ?>" placeholder="<?php echo $name?"":"Give a new name"?>">

@@ -226,7 +226,7 @@ td{
 }
 /* Form 
 -----------------------------------------------------------------------------*/
-form,.form,.table{
+.form,.table{
 	color:#777;
 	padding: 26px 24px;
 	font-weight: normal;
@@ -261,7 +261,7 @@ input[type="text"],input[type="password"],textarea,select{
 	border-width: 1px;
 	border-style: solid;
 }
-input[type="submit"], button, input[type="button"], input[type="reset"], .button {
+input[type="file"],input[type="submit"], button, input[type="button"], input[type="reset"], .button {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;

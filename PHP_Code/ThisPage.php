@@ -99,7 +99,7 @@ $user = ThisPage::getUser ();
 		</div>
 		<div class="submenu">
 			<ul class="root">
-				<li><a href="/Profiles">Profiles</a></li>
+				<li><a href="/People/Profile?user_id=<?php echo $user->getUserId();?>">Profile</a></li>
 				<li><a href="/Preferences">Preferences</a></li>
 				<li><a href="/RegistrationDetails">Registration Details</a></li>
 				<li><a href="/ChangePassword">Change Password</a></li>

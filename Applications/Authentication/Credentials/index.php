@@ -47,18 +47,20 @@ $result=$conn->query($query);
 $row = $result->fetch_assoc();
 $result->free();
 ?>
+<form class="form" action="authenticate.php" method="post">
 <table>
 <thead><?php echo $row["name"];?></thead>
 <tbody>
-<form action="authenticate.php" method="post">
+
 <tr>
 <td>Password</td>
 <td><input type="password" name="password"></td>
 </tr>
 <tr><td colspan=2><input type="hidden" name="credential" value="<?php echo $_GET['credential'];?>" /><input type="submit" /><td></tr>
-</form>
+
 </tbody>
 </table>
+</form>
 <?php 
 }
 ThisPage::renderBottom();

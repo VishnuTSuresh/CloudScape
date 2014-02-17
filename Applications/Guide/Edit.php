@@ -67,7 +67,7 @@ if($ref){
 	?>
 	<h3>Edit &raquo; <?php echo implode(" &rsaquo; ",explode("/",$ref));?></h3>
 	
-	<form name="editor_form" action="edit.php?key=<?php echo $_GET["key"]?>" id="editor_form" method=POST>
+	<form  name="editor_form" action="edit.php?key=<?php echo $_GET["key"]?>" id="editor_form" method=POST>
 	<textarea id="editor" name=content><?php echo Guide::getData($_GET["key"]);?></textarea>
 	Comments:
 	<textarea id="comment" name=comment></textarea>

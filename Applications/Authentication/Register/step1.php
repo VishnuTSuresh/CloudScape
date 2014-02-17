@@ -38,7 +38,7 @@ function printerror(){
 function printform($type){
 	if($type=="POSTGRADUATE"){
 		?>
-			<form action="step2.php" method="get">
+			<form class="form" action="step2.php" method="get">
 				<input type="hidden" name="type" value="POSTGRADUATE" />
 				<label for="enrollment">Enrollment Number:</label>
 				<input type="text" name="enrollment" id="enrollment" autofocus="autofocus"/>
@@ -50,7 +50,7 @@ function printform($type){
 	else
 	{
 		?>
-		<form action="step2.php" method="get">
+		<form class="form" action="step2.php" method="get">
 			<input type="hidden" name="type" value="UNDERGRADUATE" />
 			<label for="enrollment">Enrollment Number:</label>
 			<input type="text" name="enrollment" id="enrollment" autofocus="autofocus"/>
